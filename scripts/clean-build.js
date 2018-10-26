@@ -6,3 +6,4 @@ let distPath = './dist';
 if (args.length > 0)  [,distPath] = args[args.length - 1].split('=');
 fs.removeSync(distPath);
 fs.removeSync(webpackFolder.distPath);
+fs.removeSync(webpackFolder.cssPath);
