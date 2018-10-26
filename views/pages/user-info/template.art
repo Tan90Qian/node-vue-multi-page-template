@@ -1,0 +1,9 @@
+{{extend '../../templates/site.art'}}
+
+{{block 'content'}}
+  <article>
+    <h1>User info</h1>
+    <h3>user name: {{user.name}}</h3>
+    <h3>user id: {{user.id}}</h3>
+  </article>
+{{/block}}

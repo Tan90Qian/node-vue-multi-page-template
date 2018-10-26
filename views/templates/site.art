@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <title>test</title>
+    <link rel="stylesheet" href="css/templates/site.css">
+    {{block 'styles'}}{{/block}}
+    {{include './hmr.art'}}
+  </head>
+
+  <body>
+    {{include './header.art'}}
+
+    <main class="main-container">
+      {{block 'content'}}{{/block}}
+    </main>
+
+    {{include './footer.art'}}
+
+    <script src='/dist/vendors.js'></script>
+    {{block 'scripts'}}{{/block}}
+  </body>
+</html>

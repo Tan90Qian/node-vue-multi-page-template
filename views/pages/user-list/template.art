@@ -1,0 +1,34 @@
+{{extend '../../templates/site.art'}}
+
+{{block styles}}
+  <style>
+    {{include './style.css'}}
+  </style>
+{{/block}}
+
+{{block 'content'}}
+  <div id="userContainer" class="user-container">
+    <ul class="user-list">
+      {{each users val user}}
+        <li class="user">
+          <section class="user-content">
+            <p class="field">
+              <span class="key">uid:</span>
+              <span class="value">{{user.id}}</span>
+            </p>
+            <p class="field">
+              <span class="key">user name:</span>
+              <span class="value">{{user.name}}</span>
+          </section>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+{{/block}}
+
+{{block 'scripts'}}
+  <script>
+    var users = {{@ JSON.stringify(users)}};
+  </script>
+  <script src='/dist/user-list-bundle.js'></script>
+{{/block}}

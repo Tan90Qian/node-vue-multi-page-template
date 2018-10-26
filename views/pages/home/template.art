@@ -1,0 +1,15 @@
+{{extend '../../templates/site.art'}}
+
+{{block 'content'}}
+  <article class="home-article">
+    <h1>{{title}}</h1>
+    <p>something something</p>
+    something something
+    <div id="vue-app1"></div>
+    <div id="vue-app2"></div>
+  </article>
+{{/block}}
+  
+{{block 'scripts'}}
+  <script src='/dist/home-bundle.js'></script>
+{{/block}}

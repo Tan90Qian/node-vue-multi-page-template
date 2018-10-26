@@ -1,0 +1,11 @@
+.user {
+  display: flex;
+  align-items: center;
+}
+
+.value {
+  font-weight: bold;
+  margin-left: 3px;
+}
+
+/*# sourceMappingURL=style.css.map */
