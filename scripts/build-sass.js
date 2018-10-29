@@ -1,6 +1,8 @@
 import fs2 from 'fs-extra';
-import process from 'child_process';
+import path from 'path';
+import childProcess from 'child_process';
 
+import webpackPath from './webpack-config/path';
 import { transformEntries, collectFiles } from './webpack-config/config-producer';
 
 const chokidar = require('chokidar');
@@ -12,7 +14,7 @@ function sassc() {
   scssEntry = transformEntries(scssEntry);
   Object.keys(scssEntry).forEach(entry => {
     const filePath = scssEntry[entry];
-    process.execSync(
+    childProcess.execSync(
       `node-sass ${filePath} static${path.sep}css${path.sep}${entry}.css`, 
       function (error) {
         if (error !== null) {
@@ -28,7 +30,7 @@ function sassc() {
 function sasscSimple(filePath) {
   const filePathArray = filePath.split(path.sep);
   const [targetName] = filePathArray.slice(-2);
-  process.execSync(
+  childProcess.execSync(
     `node-sass ${filePath} static${path.sep}css${path.sep}${targetName}.css`, 
     function (error) {
       if (error !== null) {
@@ -55,10 +57,11 @@ function sasscDev() {
   console.log('start watch!');
 }
 
-
-const args = process.argv.filter(arg => arg.slice(0,4) === 'env=');
 let env = 'production';
-if (args.length > 0)  [,env] = args[args.length - 1].split('=');
+if (process.argv) {
+  const args = process.argv.filter(arg => arg.slice(0,4) === 'env=');
+  if (args.length > 0)  [,env] = args[args.length - 1].split('=');
+}
 if (env === 'production') {
   sassc();
 } else if (env === 'development') {

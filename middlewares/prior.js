@@ -1,3 +1,6 @@
+import fs from 'fs-extra';
+import path from 'path';
+
 /**
  * parse mode from command lines (env=xxx), default value is 'production'
  * @return {string} 'development' | 'production'
@@ -42,7 +45,14 @@ function applyWebpackMiddlewares(app) {
 function addModeToRender(req, res, next) {
   const originRender = res.render;
   res.render = function(view, data, callback) {
-    data = { ...data, mode: 'development' };
+    data = { 
+      ...data,
+      mode: 'development',
+      JSON: JSON,
+      getCssFileName(filePath) {
+        return filePath;
+      },
+    };
     originRender.call(res, view, data, callback);
   }
   next();
@@ -54,6 +64,34 @@ export default function(app) {
   if (mode === 'development') {
     applyWebpackMiddlewares(app);
     app.use(addModeToRender);
+  } else {
+    /* 获取cssMap数据 */
+    const cssMap = fs.readJsonSync(path.resolve(__dirname, '../static/rev/css-map.json'));
+
+    app.use(addCommonFeatureToRender);
+
+    function addCommonFeatureToRender(req, res, next) {
+      const originRender = res.render;
+      res.render = function(view, data, callback) {
+        data = { 
+          ...data,
+          JSON: JSON,
+          getCssFileName(filePath) {
+            const filePathArray = filePath.split('/');
+            const relativePath = filePathArray.slice(0, -1).join('/');
+            const [fileNameWithPostfix = ''] = filePathArray.slice(-1)
+            const [fileName] = fileNameWithPostfix.split('.');
+            const target = cssMap[fileName];
+            if (target) {
+              return `${relativePath}/${target}`;
+            }
+            return filePath;
+          }
+        };
+        originRender.call(res, view, data, callback);
+      }
+      next();
+    }
   }
 }
 

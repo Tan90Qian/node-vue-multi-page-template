@@ -1,7 +1,7 @@
 const fakeData = require('../models/fake-data');
 module.exports = {
   users(req, res) {
-    res.render('pages/user-list/template.art', { users: fakeData.users, JSON: JSON });
+    res.render('pages/user-list/template.art', { users: fakeData.users });
   },
   user(req, res) {
     const userId = req.params.id;

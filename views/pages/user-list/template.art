@@ -1,7 +1,7 @@
 {{extend '../../templates/site/site.art'}}
 
-{{block styles}}
-  <link rel="stylesheet" href="/css/user-list.css"
+{{block 'styles'}}
+  <link rel="stylesheet" href="{{getCssFileName('/css/user-list.css')}}">
 {{/block}}
 
 {{block 'content'}}
