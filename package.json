@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon ./app.js env=development --exec babel-node",
-    "sassc-dev": "sass --watch ./views:static/css",
-    "sassc": "sass ./views:static/css",
+    "sassc-dev": "babel-node scripts/build-sass.js env=development",
+    "sassc": "babel-node scripts/build-sass.js",
     "clean": "babel-node scripts/clean-build.js target=./dist",
     "build": "npm run clean && npm run build-server && npm run sassc && npm run build-client",
     "build-server": "babel ./ -d dist --ignore node_modules,views,scripts,postcss.config.js",
@@ -25,7 +25,6 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "compass": "^0.1.1",
     "css-loader": "^1.0.0",
     "fs-extra": "^7.0.0",
     "gulp": "^3.9.1",
@@ -49,6 +48,7 @@
   },
   "dependencies": {
     "art-template": "^4.13.1",
+    "chokidar": "^2.0.4",
     "express": "^4.16.3",
     "express-art-template": "^1.0.1",
     "less": "^3.8.1"

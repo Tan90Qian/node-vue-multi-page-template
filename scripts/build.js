@@ -4,7 +4,7 @@ import { ncp } from 'ncp';
 import configProducer from './webpack-config/config-producer';
 
 function copyFiles() {
-  const args = process.argv.filter(arg => arg.split(0,7) === 'target=');
+  const args = process.argv.filter(arg => arg.slice(0,7) === 'target=');
   let distPath = './dist';
   if (args.length > 0)  [,distPath] = args[args.length - 1].split('=');
 

@@ -1,4 +1,4 @@
-{{extend '../../templates/site.art'}}
+{{extend '../../templates/site/site.art'}}
 
 {{block 'content'}}
   <article class="home-article">

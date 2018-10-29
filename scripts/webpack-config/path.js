@@ -8,6 +8,8 @@ const webpackPath = {
   cssPath: path.resolve(__dirname, `../../static/${cssFolder}`),
   views: 'views',
   vueEntry: 'vue-entry.js',
+  scssEntry: 'art-style.scss',
+  transformCssPath: 'static/css',
   vendorDependencies: ['vue']
 };
 
