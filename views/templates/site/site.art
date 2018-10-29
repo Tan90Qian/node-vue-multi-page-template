@@ -2,19 +2,19 @@
 <html lang="en" >
   <head>
     <title>test</title>
-    <link rel="stylesheet" href="css/templates/site.css">
+    <link rel="stylesheet" href="css/site.css">
     {{block 'styles'}}{{/block}}
-    {{include './hmr.art'}}
+    {{include '../hmr.art'}}
   </head>
 
   <body>
-    {{include './header.art'}}
+    {{include '../header.art'}}
 
     <main class="main-container">
       {{block 'content'}}{{/block}}
     </main>
 
-    {{include './footer.art'}}
+    {{include '../footer.art'}}
 
     <script src='/dist/vendors.js'></script>
     {{block 'scripts'}}{{/block}}
