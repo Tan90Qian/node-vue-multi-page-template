@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import webpack from "webpack";
 
 import webpackPath from './path';
 import baseConfig from './base-config';
@@ -46,13 +47,26 @@ export function transformEntries(entries, postfix = '') {
 export default function(mode) {
   let entry = collectFiles(webpackPath.views, webpackPath.vueEntry, []);
   entry = transformEntries(entry, '-bundle');
+  /* 模板文件引入的js文件 */
+  let es6Entry = collectFiles(webpackPath.views, webpackPath.es6Entry, []);
+  es6Entry = transformEntries(es6Entry);
+  /* 入口整合 */
+  entry = { ...entry, ...es6Entry };
   entry.vendors = webpackPath.vendorDependencies;
-  if (mode === 'development') entry['hmr'] = 'webpack-hot-middleware/client?reload=true';
+  let { plugins } = baseConfig;
+  if (mode === 'development') {
+    entry['hmr'] = 'webpack-hot-middleware/client?reload=true';
+    plugins = plugins.concat(
+      new webpack.HotModuleReplacementPlugin(), 
+      new webpack.NoEmitOnErrorsPlugin()
+    );
+  }
   const webpackConfig = {
     ...baseConfig,
     mode,
     entry,
-    watch: mode === 'development'
+    watch: mode === 'development',
+    plugins,
   };
   return webpackConfig;
 }

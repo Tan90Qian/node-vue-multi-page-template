@@ -1,3 +1,4 @@
+/* 该文件暂时不用，通过webpack打包 */
 import fs from 'fs-extra';
 import path from 'path';
 import childProcess from 'child_process';
@@ -24,7 +25,7 @@ function build() {
       }
     )
   })
-  console.log('finish build scss');
+  console.log('finish build es6');
 }
 
 /* 根据watch编译单个scss文件 */

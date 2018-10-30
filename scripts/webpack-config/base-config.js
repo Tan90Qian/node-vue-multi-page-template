@@ -59,9 +59,7 @@ const baseConfig = {
     poll: true
   },
   plugins: [
-    new VueLoaderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new VueLoaderPlugin()
   ]
 };
 
