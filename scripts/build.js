@@ -2,8 +2,7 @@ import webpack from 'webpack';
 import path from 'path';
 import { ncp } from 'ncp';
 import md5 from 'blueimp-md5';
-import fs from 'fs';
-import fs2 from 'fs-extra';
+import fs from 'fs-extra';
 
 import configProducer from './webpack-config/config-producer';
 
@@ -62,7 +61,7 @@ function copyJsFiles(distPath) {
   }, function(err) {
     if (err) console.log(err);
     /* 写入jsMap数据，用于prod下文件名映射 */
-    fs2.writeJSONSync(`${distPath}/static/rev/js-map.json`, jsMap);
+    fs.writeJSONSync(`${distPath}/static/rev/js-map.json`, jsMap);
     console.log('copy static dist folder success');
   })
 }
@@ -82,7 +81,7 @@ function copyCssFiles(distPath) {
   },function(err) {
   if (err) console.log(err);
     /* 写入cssMap数据，用于prod下文件名映射 */
-    fs2.writeJSONSync(`${distPath}/static/rev/css-map.json`, cssMap);
+    fs.writeJSONSync(`${distPath}/static/rev/css-map.json`, cssMap);
     console.log('copy static css folder success');
   })
 }

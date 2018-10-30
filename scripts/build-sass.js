@@ -1,4 +1,4 @@
-import fs2 from 'fs-extra';
+import fs from 'fs-extra';
 import path from 'path';
 import childProcess from 'child_process';
 
@@ -9,7 +9,7 @@ const chokidar = require('chokidar');
 
 /* 编译scss文件 */
 function sassc() {
-  fs2.removeSync(webpackPath.cssPath);
+  fs.removeSync(webpackPath.cssPath);
   let scssEntry = collectFiles(webpackPath.views, webpackPath.scssEntry, []);
   scssEntry = transformEntries(scssEntry);
   Object.keys(scssEntry).forEach(entry => {
@@ -43,8 +43,8 @@ function sasscSimple(filePath) {
 
 /* 监听scss文件变化并编译 */
 function sasscDev() {
-  fs2.removeSync(webpackPath.cssPath);
-  const watcher = chokidar.watch('./views/**/art-style.scss')
+  fs.removeSync(webpackPath.cssPath);
+  const watcher = chokidar.watch(`./views/**/${webpackPath.scssEntry}`)
   watcher.on('all', (event, filePath) => {
     if (event !== 'error') {
       sasscSimple(filePath);
