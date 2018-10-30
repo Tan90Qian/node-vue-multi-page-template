@@ -27,6 +27,7 @@ function copyFiles() {
   fs.mkdirSync(`${distPath}/static/rev`);
   copyJsFiles(distPath);
   copyCssFiles(distPath);
+  copyOtherResources(distPath);
 }
 
 /* 获取md5后的文件路径以及跟原文件的映射关系 */
@@ -50,7 +51,6 @@ function copyJsFiles(distPath) {
   /* 拷贝dist目录 */
   ncp('static/js', `${distPath}/static/js`, {
     rename: function(target) {
-      console.log(target);
       if (path.basename(target).includes('.js')) {
         const { resultFilePath, mapFileName, fileName } = getFilePath(target);
         jsMap[fileName] = mapFileName;
@@ -83,6 +83,19 @@ function copyCssFiles(distPath) {
     /* 写入cssMap数据，用于prod下文件名映射 */
     fs.writeJSONSync(`${distPath}/static/rev/css-map.json`, cssMap);
     console.log('copy static css folder success');
+  })
+}
+
+function copyOtherResources(distPath) {
+  /* 拷贝其余静态资源 */
+  ncp('static', `${distPath}/static`, {
+    filter: function(target) {
+      if (target.includes('/css/') || target.includes('/js/')) return false;
+      return true;
+    },
+  },function(err) {
+  if (err) console.log(err);
+    console.log('copy static resource folder success');
   })
 }
 
