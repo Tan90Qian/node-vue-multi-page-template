@@ -35,6 +35,18 @@ function applyWebpackMiddlewares(app) {
   app.use(webpackHotMiddleware(compiler));
 }
 
+function getFilePath(filePath, map) {
+  const filePathArray = filePath.split('/');
+  const relativePath = filePathArray.slice(0, -1).join('/');
+  const [fileNameWithPostfix = ''] = filePathArray.slice(-1)
+  const [fileName] = fileNameWithPostfix.split('.');
+  const target = map[fileName];
+  if (target) {
+    return `${relativePath}/${target}`;
+  }
+  return filePath;
+}
+
 /**
  * overload res.render function
  * append mode = "development" to view data
@@ -52,6 +64,9 @@ function addModeToRender(req, res, next) {
       getCssFileName(filePath) {
         return filePath;
       },
+      getJsFileName(filePath) {
+        return filePath;
+      },
     };
     originRender.call(res, view, data, callback);
   }
@@ -67,6 +82,7 @@ export default function(app) {
   } else {
     /* 获取cssMap数据 */
     const cssMap = fs.readJsonSync(path.resolve(__dirname, '../static/rev/css-map.json'));
+    const jsMap = fs.readJsonSync(path.resolve(__dirname, '../static/rev/js-map.json'));
 
     app.use(addCommonFeatureToRender);
 
@@ -77,15 +93,10 @@ export default function(app) {
           ...data,
           JSON: JSON,
           getCssFileName(filePath) {
-            const filePathArray = filePath.split('/');
-            const relativePath = filePathArray.slice(0, -1).join('/');
-            const [fileNameWithPostfix = ''] = filePathArray.slice(-1)
-            const [fileName] = fileNameWithPostfix.split('.');
-            const target = cssMap[fileName];
-            if (target) {
-              return `${relativePath}/${target}`;
-            }
-            return filePath;
+            return getFilePath(filePath, cssMap);
+          },
+          getJsFileName(filePath) {
+            return getFilePath(filePath, jsMap);
           }
         };
         originRender.call(res, view, data, callback);

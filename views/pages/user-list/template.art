@@ -28,5 +28,5 @@
   <script>
     var users = {{@ JSON.stringify(users)}};
   </script>
-  <script src='/dist/user-list-bundle.js'></script>
+  <script src="{{getJsFileName('/js/user-list-bundle.js')}}"></script>
 {{/block}}

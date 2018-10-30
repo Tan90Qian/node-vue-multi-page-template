@@ -11,5 +11,5 @@
 {{/block}}
   
 {{block 'scripts'}}
-  <script src='/dist/home-bundle.js'></script>
+  <script src="{{getJsFileName('/js/home-bundle.js')}}"></script>
 {{/block}}

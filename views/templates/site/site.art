@@ -2,7 +2,7 @@
 <html lang="en" >
   <head>
     <title>test</title>
-    <link rel="stylesheet" href="{{getCssFileName('/css/site.css')}}">
+    <link rel="stylesheet" href={{getCssFileName('/css/site.css')}}>
     {{block 'styles'}}{{/block}}
     {{include '../hmr.art'}}
   </head>
@@ -16,7 +16,7 @@
 
     {{include '../footer.art'}}
 
-    <script src='/dist/vendors.js'></script>
+    <script src="{{getJsFileName('/js/vendors.js')}}"></script>
     {{block 'scripts'}}{{/block}}
   </body>
 </html>
