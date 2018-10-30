@@ -1,13 +1,12 @@
 "use strict";
 import VueLoaderPlugin from "vue-loader/lib/plugin";
 import webpack from "webpack";
+import path from "path";
 
 import webpackPath from "./path";
 
-const path = require('path');
-
 function resolve(dir) {
-  return path.join(__dirname, '..', dir);
+  return path.join(__dirname, "..", dir);
 }
 
 const baseConfig = {
@@ -26,8 +25,8 @@ const baseConfig = {
     }
   },
   output: {
-    path: webpackPath.distPath,
-    filename: "[name].js"
+    path: path.resolve(webpackPath.distPath, '../'),
+    filename: "js/[name].js"
   },
   module: {
     rules: [
@@ -38,7 +37,7 @@ const baseConfig = {
       {
         test: /\.js$/,
         loader: "babel-loader",
-        include: [resolve("../src")],
+        include: [resolve("../src")]
       },
       {
         test: /\.css$/,
@@ -51,6 +50,45 @@ const baseConfig = {
       {
         test: /\.pug$/,
         loader: "pug-plain-loader"
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: "url-loader",
+        options: {
+          limit: 8192,
+          name: "[name].[hash:7].[ext]",
+          outputPath:
+            process.env.NODE_ENV === "production"
+              ? "../dist/static/img/"
+              : "img/",
+          publicPath: "img/"
+        }
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: "url-loader",
+        options: {
+          limit: 8192,
+          name: "[name].[hash:7].[ext]",
+          outputPath:
+            process.env.NODE_ENV === "production"
+              ? "../dist/static/media/"
+              : "media/",
+          publicPath: "media/"
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: "url-loader",
+        options: {
+          limit: 8192,
+          name: "[name].[hash:7].[ext]",
+          outputPath:
+            process.env.NODE_ENV === "production"
+              ? "../dist/static/fonts/"
+              : "fonts/",
+          publicPath: "fonts/"
+        }
       }
     ]
   },
@@ -58,9 +96,7 @@ const baseConfig = {
     ignored: /node_modules/,
     poll: true
   },
-  plugins: [
-    new VueLoaderPlugin()
-  ]
+  plugins: [new VueLoaderPlugin()]
 };
 
 export default baseConfig;

@@ -22,9 +22,9 @@ function copyFiles() {
     if (err) console.log(err);
     console.log('copy views success');
   });
-  /* 提前创建static目录，防止后续任务报错 */
-  fs.mkdirSync(`${distPath}/static`);
-  fs.mkdirSync(`${distPath}/static/rev`);
+  /* 确保创建static目录，防止后续任务报错 */
+  fs.ensureDirSync(`${distPath}/static`);
+  fs.ensureDirSync(`${distPath}/static/rev`);
   copyJsFiles(distPath);
   copyCssFiles(distPath);
   copyOtherResources(distPath);
