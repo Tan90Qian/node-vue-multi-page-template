@@ -28,7 +28,8 @@ function applyWebpackMiddlewares(app) {
     watchOptions: {
       poll: true
     },
-    publicPath: `/${webpackFolder.distFolder}/`
+    // publicPath: `/${webpackFolder.distFolder}/`
+    publicPath: '/js/'
     // writeToDisk: true
     // webpack-dev-middleware options
   }));
