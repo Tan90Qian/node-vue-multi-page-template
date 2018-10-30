@@ -61,7 +61,7 @@ const baseConfig = {
             process.env.NODE_ENV === "production"
               ? "../dist/static/img/"
               : "img/",
-          publicPath: "img/"
+          publicPath: "/img/"
         }
       },
       {
@@ -74,7 +74,7 @@ const baseConfig = {
             process.env.NODE_ENV === "production"
               ? "../dist/static/media/"
               : "media/",
-          publicPath: "media/"
+          publicPath: "/media/"
         }
       },
       {
@@ -87,7 +87,7 @@ const baseConfig = {
             process.env.NODE_ENV === "production"
               ? "../dist/static/fonts/"
               : "fonts/",
-          publicPath: "fonts/"
+          publicPath: "/fonts/"
         }
       }
     ]

@@ -40,8 +40,8 @@ function getFilePath(targetPath) {
   const contentString = fs.readFileSync(targetPath.replace(`dist${path.sep}`, ''), 'utf-8');
   const fileMd5 = md5(contentString);
   return {
-    resultFilePath: `${relativePath}${path.sep}${fileName}-${fileMd5}.${postfix}`,
-    mapFileName: `${fileName}-${fileMd5}.${postfix}`,
+    resultFilePath: `${relativePath}${path.sep}${fileName}.${fileMd5}.${postfix}`,
+    mapFileName: `${fileName}.${fileMd5}.${postfix}`,
     fileName,
   }
 }
