@@ -7,7 +7,7 @@
     <a class="nav-item" href="/">
       Home
     </a>
-    <a class="nav-item" href="/user">
+    <a class="nav-item" href="/users">
       User
     </a>
   </nav>
