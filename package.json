@@ -35,9 +35,11 @@
     "blueimp-md5": "^2.10.0",
     "css-loader": "^1.0.0",
     "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-vue": "^4.7.1",
     "file-loader": "^2.0.0",
     "fs-extra": "^7.0.0",
@@ -71,11 +73,7 @@
     "pm2": "^3.2.2"
   },
   "lint-staged": {
-    "**/*.{js,vue,scss}": [
-      "prettier --write",
-      "git add"
-    ],
-    "**/*.{vue,js}": "npm run lint"
+    "views/**/*.js": ["eslint --fix", "git add"]
   },
   "browserslist": [
     "> 1%",

@@ -4,6 +4,6 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: ['plugin:vue/essential', 'prettier'],
+  extends: ['plugin:vue/essential', 'prettier', 'airbnb-base'],
   plugins: ['vue'],
 };
