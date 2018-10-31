@@ -19,7 +19,6 @@
     "lint": "eslint --ext .js,.vue views controllers middlewares app.js",
     "lint:fix": "eslint --fix --ext .js,.vue views controllers middlewares app.js",
     "lint-staged": "lint-staged",
-    "lint-staged:js": "eslint --ext .js,.vue views controllers middlewares app.js",
     "prettier": "prettier --write ./views/**/*.js ./views/**/*.vue ./controllers/**/*.js ./middlewares/**/*.js app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -76,7 +75,7 @@
       "prettier --write",
       "git add"
     ],
-    "**/*.{vue,js}": "npm run lint-staged:js"
+    "**/*.{vue,js}": "npm run lint"
   },
   "browserslist": [
     "> 1%",
