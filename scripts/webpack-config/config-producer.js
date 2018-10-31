@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs';
-import webpack from "webpack";
+import webpack from 'webpack';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 
 import webpackPath from './path';
 import baseConfig from './base-config';
@@ -14,11 +15,11 @@ import baseConfig from './base-config';
 export function collectFiles(targetFolder, targetFileName, files) {
   const folders = [];
   fs.readdirSync(targetFolder)
-  .map(name => path.join(targetFolder, name))
-  .forEach(source => {
-    if (fs.lstatSync(source).isDirectory()) folders.push(source);
-    else if (source.includes(targetFileName)) files.push(source);
-  })
+    .map(name => path.join(targetFolder, name))
+    .forEach(source => {
+      if (fs.lstatSync(source).isDirectory()) folders.push(source);
+      else if (source.includes(targetFileName)) files.push(source);
+    });
   folders.forEach(f => collectFiles(f, targetFileName, files));
   return files;
 }
@@ -26,7 +27,7 @@ export function collectFiles(targetFolder, targetFileName, files) {
 /**
  * generate object entry for webpack
  * @param {string[]} entries entry file path (absolute path)
- * @return {object} { fileName: path } 
+ * @return {object} { fileName: path }
  * @return {string} fileName: relative path to pages. such as pages/home-bundle
  */
 export function transformEntries(entries, postfix = '') {
@@ -35,9 +36,9 @@ export function transformEntries(entries, postfix = '') {
     const segments = entry.split(path.sep);
     segments.splice(-1);
     segments.splice(0, 2);
-    const fileName = segments.join(path.sep) +  postfix;
+    const fileName = segments.join(path.sep) + postfix;
     output[fileName] = `.${path.sep}${entry}`;
-  })
+  });
   return output;
 }
 
@@ -57,8 +58,11 @@ export default function(mode) {
   if (mode === 'development') {
     entry['hmr'] = 'webpack-hot-middleware/client?reload=true';
     plugins = plugins.concat(
-      new webpack.HotModuleReplacementPlugin(), 
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
+      new StyleLintPlugin({
+        files: ['**/*.{vue,htm,html,css,scss,sass}'],
+      })
     );
   }
   const webpackConfig = {
@@ -70,4 +74,3 @@ export default function(mode) {
   };
   return webpackConfig;
 }
-

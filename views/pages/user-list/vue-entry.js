@@ -3,5 +3,5 @@ import UserList from './list';
 
 new Vue({
   el: '#userContainer',
-  render: h => h(UserList)
+  render: h => h(UserList),
 });
