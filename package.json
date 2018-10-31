@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon ./app.js env=development --exec babel-node",
+    "dev": "concurrently \"npm:node-dev\" \"npm:sassc-dev\"",
+    "node-dev": "nodemon ./app.js env=development --exec babel-node",
     "sassc-dev": "babel-node scripts/build-sass.js env=development",
     "sassc": "babel-node scripts/build-sass.js",
     "clean": "babel-node scripts/clean-build.js target=./dist",
@@ -52,6 +53,7 @@
   "dependencies": {
     "art-template": "^4.13.1",
     "chokidar": "^2.0.4",
+    "concurrently": "^4.0.1",
     "express": "^4.16.3",
     "express-art-template": "^1.0.1"
   },
