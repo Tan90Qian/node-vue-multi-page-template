@@ -18,8 +18,8 @@
     "delete": "pm2 delete mazai-pc",
     "lint": "eslint --ext .js,.vue app.js views scripts middlewares controllers && npm run lint-style",
     "lint:fix": "eslint --fix --ext .js,.vue app.js views scripts middlewares controllers && npm run lint-style:fix",
-    "lint-style": "stylelint \"views/**/*.scss\" --syntax scss",
-    "lint-style:fix": "stylelint \"views/**/*.scss\" --syntax scss --fix",
+    "lint-style": "stylelint \"views/**/*.scss\" \"views/**/*.vue\" --syntax scss",
+    "lint-style:fix": "stylelint \"views/**/*.scss\" \"views/**/*.vue\" --syntax scss --fix",
     "lint-staged": "lint-staged",
     "lint-staged:js": "eslint --ext .js app.js views scripts middlewares controllers",
     "prettier": "prettier --write ./views/**/*.js ./views/**/*.scss ./controller/**/*.js ./controller/**/*.scss **/*.vue",
@@ -60,6 +60,7 @@
     "stylelint": "^9.7.1",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
+    "stylelint-processor-html": "^1.0.0",
     "stylelint-webpack-plugin": "^0.10.5",
     "url-loader": "^1.1.2",
     "vue": "^2.5.17",
@@ -85,7 +86,7 @@
       "git add"
     ],
     "**/*.{js,vue,scss}/**/*.{js,vue}": "npm run lint-staged:js",
-    "**/*.scss": "stylelint --syntax scss"
+    "**/*.{scss,vue}": "stylelint --syntax scss"
   },
   "browserslist": [
     "> 1%",
