@@ -2,6 +2,7 @@
   "name": "mazai-pc",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "app.js",
   "scripts": {
     "dev": "concurrently \"npm:node-dev\" \"npm:sassc-dev\"",
@@ -12,11 +13,11 @@
     "build": "npm run clean && npm run build-server && npm run sassc && npm run build-client",
     "build-server": "babel ./ -d dist --ignore node_modules,views,scripts,postcss.config.js",
     "build-client": "NODE_ENV=production babel-node ./scripts/build.js target=./dist",
-    "start": "node ./dist/app.js",
+    "start": "pm2 start ./dist/app.js --name mazai-pc",
+    "delete": "pm2 delete mazai-pc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "MNW-FE",
   "devDependencies": {
     "autoprefixer": "^9.3.1",
     "babel-cli": "^6.26.0",
@@ -55,7 +56,8 @@
     "chokidar": "^2.0.4",
     "concurrently": "^4.0.1",
     "express": "^4.16.3",
-    "express-art-template": "^1.0.1"
+    "express-art-template": "^1.0.1",
+    "pm2": "^3.2.2"
   },
   "browserslist": [
     "> 1%",
