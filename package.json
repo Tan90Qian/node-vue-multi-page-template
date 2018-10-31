@@ -22,7 +22,7 @@
     "lint-style:fix": "stylelint \"views/**/*.scss\" --syntax scss --fix",
     "lint-staged": "lint-staged",
     "lint-staged:js": "eslint --ext .js app.js views scripts middlewares controllers",
-    "prettier": "prettier --write ./views/**/*.js ./views/**/*.scss ./controller/**/*.js ./controller/**/*.scss",
+    "prettier": "prettier --write ./views/**/*.js ./views/**/*.scss ./controller/**/*.js ./controller/**/*.scss **/*.vue",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MNW-FE",

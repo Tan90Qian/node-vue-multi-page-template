@@ -36,24 +36,24 @@ export default {
     return {
       users: [],
       maxUid: 0,
-      inputStr: ''
-    }
+      inputStr: '',
+    };
   },
   methods: {
     handleDelete(userId) {
       this.users = this.users.filter(u => u.id !== userId);
     },
     handleAdd() {
-      this.maxUid ++;
+      this.maxUid++;
       this.users.push({ id: this.maxUid, name: this.inputStr });
       this.inputStr = '';
-    }
+    },
   },
   mounted() {
     this.users = window.users;
     this.maxUid = this.users.length;
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">

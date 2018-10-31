@@ -6,22 +6,23 @@
 </template>
 
 <script>
-import MyInput from "../../components/input";
+import MyInput from '../../components/input';
 
 export default {
   components: {
-    MyInput
+    MyInput,
   },
   data() {
     return {
-      test: 12312
+      test: 12312,
     };
-  }
+  },
 };
 </script>
 
 <style scoped>
 input::placeholder {
+  color: red;
   color: red;
 }
 .vue1 {
