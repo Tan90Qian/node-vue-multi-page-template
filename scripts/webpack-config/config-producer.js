@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 
 import webpackPath from './path';
 import baseConfig from './base-config';
@@ -44,7 +45,7 @@ export function transformEntries(entries, postfix = '') {
 /**
  * @param {string} mode 'development' | 'production' | 'test'
  */
-export default function(mode) {
+export default function getWebpackConfig(mode) {
   let entry = collectFiles(webpackPath.views, webpackPath.vueEntry, []);
   entry = transformEntries(entry, '-bundle');
   /* 模板文件引入的js文件 */
@@ -55,10 +56,13 @@ export default function(mode) {
   entry.vendors = webpackPath.vendorDependencies;
   let { plugins } = baseConfig;
   if (mode === 'development') {
-    entry['hmr'] = 'webpack-hot-middleware/client?reload=true';
+    entry.hmr = 'webpack-hot-middleware/client?reload=true';
     plugins = plugins.concat(
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.NoEmitOnErrorsPlugin(),
+      new StyleLintPlugin({
+        files: ['**/*.{vue,htm,html,css,scss,sass}'],
+      })
     );
   }
   const webpackConfig = {

@@ -4,6 +4,18 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: ['plugin:vue/essential', 'prettier', 'airbnb-base'],
+  extends: ['airbnb-base', 'plugin:vue/essential', 'prettier'],
   plugins: ['vue'],
+  rules: {
+    'import/extensions': [
+      'error',
+      'always',
+      {
+        js: 'never',
+        vue: 'never',
+      },
+    ],
+    'import/no-extraneous-dependencies': [0],
+    'import/no-unresolved': [0],
+  },
 };

@@ -16,10 +16,13 @@
     "build-client": "NODE_ENV=production babel-node ./scripts/build.js target=./dist",
     "start": "pm2 start ./dist/app.js --name mazai-pc",
     "delete": "pm2 delete mazai-pc",
-    "lint": "eslint --ext .js,.vue views controllers middlewares app.js",
-    "lint:fix": "eslint --fix --ext .js,.vue views controllers middlewares app.js",
+    "lint": "eslint --ext .js,.vue app.js views scripts middlewares controllers && npm run lint-style",
+    "lint:fix": "eslint --fix --ext .js,.vue app.js views scripts middlewares controllers && npm run lint-style:fix",
+    "lint-style": "stylelint \"views/**/*.scss\" \"views/**/*.vue\" --syntax scss",
+    "lint-style:fix": "stylelint \"views/**/*.scss\" \"views/**/*.vue\" --syntax scss --fix",
     "lint-staged": "lint-staged",
-    "prettier": "prettier --write ./views/**/*.js ./views/**/*.vue ./controllers/**/*.js ./middlewares/**/*.js app.js",
+    "lint-staged:js": "eslint --ext .js app.js views scripts middlewares controllers",
+    "prettier": "prettier --write ./views/**/*.js ./views/**/*.scss ./controller/**/*.js ./controller/**/*.scss **/*.vue",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MNW-FE",
@@ -54,12 +57,15 @@
     "prettier": "^1.14.3",
     "sass": "^1.14.3",
     "sass-loader": "^7.1.0",
+    "stylelint": "^9.7.1",
+    "stylelint-config-prettier": "^4.0.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-processor-html": "^1.0.0",
+    "stylelint-webpack-plugin": "^0.10.5",
     "url-loader": "^1.1.2",
-    "vue": "^2.5.17",
     "vue-loader": "^15.4.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.17",
-    "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-middleware": "^3.4.0",
     "webpack-hot-middleware": "^2.24.3"
@@ -70,10 +76,17 @@
     "concurrently": "^4.0.1",
     "express": "^4.16.3",
     "express-art-template": "^1.0.1",
-    "pm2": "^3.2.2"
+    "pm2": "^3.2.2",
+    "vue": "^2.5.17",
+    "webpack": "^4.23.1"
   },
   "lint-staged": {
-    "views/**/*.js": ["eslint --fix", "git add"]
+    "**/*.{js,vue,scss}": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{js,vue}": "eslint --ext .js,.vue",
+    "**/*.{scss,vue}": "stylelint --syntax scss"
   },
   "browserslist": [
     "> 1%",
