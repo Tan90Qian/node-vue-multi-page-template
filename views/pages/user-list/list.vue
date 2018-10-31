@@ -51,7 +51,7 @@ export default {
       this.users = this.users.filter(u => u.id !== userId);
     },
     handleAdd() {
-      this.maxUid++;
+      this.maxUid += 1;
       this.users.push({ id: this.maxUid, name: this.inputStr });
       this.inputStr = '';
     },

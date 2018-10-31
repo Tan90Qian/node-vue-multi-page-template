@@ -6,10 +6,11 @@ import homeController from './controllers/home-controller';
 import userController from './controllers/user-controller';
 
 const app = express();
-app.set('views', __dirname + '/views');
+app.set('views', path.posix.join(__dirname, 'views'));
 // app.set('view engine', 'pug')
 // app.set('view engine','ejs');
 app.engine('art', require('express-art-template'));
+
 applyPriorMiddlewares(app);
 app.use(express.static(path.resolve(__dirname, 'static')));
 
