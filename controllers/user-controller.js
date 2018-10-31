@@ -10,5 +10,5 @@ module.exports = {
       return res.render('pages/user-info/404.art', { id: userId });
     }
     res.render('pages/user-info/template.art', { user: user[0] });
-  }
-}
+  },
+};

@@ -1,7 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
-import StyleLintPlugin from 'stylelint-webpack-plugin';
 
 import webpackPath from './path';
 import baseConfig from './base-config';
@@ -59,10 +58,7 @@ export default function(mode) {
     entry['hmr'] = 'webpack-hot-middleware/client?reload=true';
     plugins = plugins.concat(
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-      new StyleLintPlugin({
-        files: ['**/*.{vue,htm,html,css,scss,sass}'],
-      })
+      new webpack.NoEmitOnErrorsPlugin()
     );
   }
   const webpackConfig = {
