@@ -24,7 +24,6 @@ export default {
 <style scoped>
 input::placeholder {
   color: red;
-  color: red;
 }
 .vue1 {
   margin-top: 30px;

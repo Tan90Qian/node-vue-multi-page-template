@@ -7,15 +7,10 @@ module.exports = {
   extends: ['airbnb-base', 'plugin:vue/essential', 'prettier'],
   plugins: ['vue'],
   rules: {
-    'import/extensions': [
-      'error',
-      'always',
-      {
-        js: 'never',
-        vue: 'never',
-      },
-    ],
+    'import/extensions': [0],
     'import/no-extraneous-dependencies': [0],
     'import/no-unresolved': [0],
+    'no-new': [0],
+    'no-console': [0],
   },
 };
