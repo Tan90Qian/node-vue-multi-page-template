@@ -20,7 +20,7 @@
     "lint:fix": "eslint --fix --ext .js,.vue app.js views scripts middlewares controllers",
     "lint-staged": "lint-staged",
     "lint-staged:js": "eslint --ext .js,.vue app.js views scripts middlewares controllers",
-    "prettier": "prettier --write ./views/**/*.js ./controllers/**/*.js ./views/**/*.vue",
+    "prettier": "prettier --write ./views/**/*.js ./controllers/**/*.js ./middlewares/**/*.js ./views/**/*.vue app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MNW-FE",

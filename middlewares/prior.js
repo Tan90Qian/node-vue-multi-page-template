@@ -9,7 +9,7 @@ function parseMode() {
   const defaultVal = 'production';
   const theFields = process.argv.filter(a => a.slice(0, 4) === 'env=');
   if (theFields.length < 1) return defaultVal;
-  const [,val] = theFields[theFields.length - 1].split('=');
+  const [, val] = theFields[theFields.length - 1].split('=');
   if (val !== 'development' && val !== 'production') return defaultVal;
   else return val;
 }
@@ -24,22 +24,24 @@ function applyWebpackMiddlewares(app) {
 
   const config = configProducer('development');
   const compiler = webpack(config);
-  app.use(middleware(compiler, {
-    watchOptions: {
-      poll: true
-    },
-    // publicPath: `/${webpackFolder.distFolder}/`
-    publicPath: '/'
-    // writeToDisk: true
-    // webpack-dev-middleware options
-  }));
+  app.use(
+    middleware(compiler, {
+      watchOptions: {
+        poll: true,
+      },
+      // publicPath: `/${webpackFolder.distFolder}/`
+      publicPath: '/',
+      // writeToDisk: true
+      // webpack-dev-middleware options
+    })
+  );
   app.use(webpackHotMiddleware(compiler));
 }
 
 function getFilePath(filePath, map) {
   const filePathArray = filePath.split('/');
   const relativePath = filePathArray.slice(0, -1).join('/');
-  const [fileNameWithPostfix = ''] = filePathArray.slice(-1)
+  const [fileNameWithPostfix = ''] = filePathArray.slice(-1);
   const [fileName] = fileNameWithPostfix.split('.');
   const target = map[fileName];
   if (target) {
@@ -58,7 +60,7 @@ function getFilePath(filePath, map) {
 function addModeToRender(req, res, next) {
   const originRender = res.render;
   res.render = function(view, data, callback) {
-    data = { 
+    data = {
       ...data,
       mode: 'development',
       JSON: JSON,
@@ -70,7 +72,7 @@ function addModeToRender(req, res, next) {
       },
     };
     originRender.call(res, view, data, callback);
-  }
+  };
   next();
 }
 
@@ -90,7 +92,7 @@ export default function(app) {
     function addCommonFeatureToRender(req, res, next) {
       const originRender = res.render;
       res.render = function(view, data, callback) {
-        data = { 
+        data = {
           ...data,
           JSON: JSON,
           getCssFileName(filePath) {
@@ -98,13 +100,11 @@ export default function(app) {
           },
           getJsFileName(filePath) {
             return getFilePath(filePath, jsMap);
-          }
+          },
         };
         originRender.call(res, view, data, callback);
-      }
+      };
       next();
     }
   }
 }
-
-
