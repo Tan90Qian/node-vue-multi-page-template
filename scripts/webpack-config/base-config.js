@@ -59,10 +59,6 @@ const baseConfig = {
         use: ['vue-style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
-        test: /\.pug$/,
-        loader: 'pug-plain-loader',
-      },
-      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {

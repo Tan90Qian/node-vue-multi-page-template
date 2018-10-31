@@ -1,8 +1,9 @@
-<template lang="pug">
-  div(class="vue2")
-    span vue122 slot1231
-    img(src="../../../static/img/taiwu.jpg")
-    img(src="/img/taiwu.jpg")
+<template>
+  <div class="vue2">
+    <span>vue122 slot1231</span>
+    <img src="../../../static/img/taiwu.jpg" />
+    <img src="/img/taiwu.jpg" />
+  </div>
 </template>
 
 <script>

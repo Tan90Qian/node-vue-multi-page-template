@@ -1,32 +1,39 @@
-<template lang="pug">
-div#userContainer(class="user-container")
-  ul(class="user-list")
-    li(
-      v-for="user in users"
-      :key="user.id"
-      class="user"
-    )
-      section(class="user-content")
-        p(class="field")
-          span(class="key") uid:
-          span(class="value") {{user.id}}
-        p(class="field")
-          span(class="key") user name:
-          span(class="value") {{user.name}}
-      a(
+<template>
+<div id="userContainer" class="user-container">
+  <ul class="user-list">
+    <li v-for="user in users" :key="user.id" class="user">
+      <section class="user-content">
+        <p class="field" >
+          <span class="key">uid:</span>
+          <span class="value">{{user.id}}</span>
+        </p>
+        <p class="field">
+          <span class="key">user name:</span>
+          <span class="value">{{user.name}}</span>
+        </p>
+      </section>
+      <a 
         class="button button--delete"
-        @click="handleDelete(user.id)"
-      ) 删除
-      a(
+        @click="handleDelete(user.id)">
+        删除 
+      </a>
+      <a
         class="button button--detail"
         :href="`/user/${user.id}`"
-      ) 详情
-  div(class="input-wrapper")
-    input(type="text", v-model="inputStr")
-    a(
+      >
+        详情
+      </a>
+    </li>
+  </ul>
+  <div class="input-wrapper">
+    <input type="text" v-model="inputStr">
+    <a
       class="button button--add"
       @click="handleAdd"
-    ) 添加
+    >
+      添加
+    </a>
+  </div>
 </div>
 </template>
   
