@@ -15,14 +15,14 @@ function sassc() {
   Object.keys(scssEntry).forEach(entry => {
     const filePath = scssEntry[entry];
     childProcess.execSync(
-      `node-sass ${filePath} static${path.sep}css${path.sep}${entry}.css`, 
-      function (error) {
+      `node-sass ${filePath} static${path.sep}css${path.sep}${entry}.css`,
+      function(error) {
         if (error !== null) {
           console.log('exec error: ' + error);
         }
       }
-    )
-  })
+    );
+  });
   console.log('finish build scss');
 }
 
@@ -31,36 +31,41 @@ function sasscSimple(filePath) {
   const filePathArray = filePath.split(path.sep);
   const [targetName] = filePathArray.slice(-2);
   childProcess.execSync(
-    `node-sass ${filePath} static${path.sep}css${path.sep}${targetName}.css`, 
-    function (error) {
+    `node-sass ${filePath} static${path.sep}css${path.sep}${targetName}.css`,
+    function(error) {
       if (error !== null) {
         console.log('exec error: ' + error);
       }
     }
-  )
+  );
   console.log(`update finish file: ${targetName}`);
 }
 
 /* 监听scss文件变化并编译 */
 function sasscDev() {
   fs.removeSync(webpackPath.cssPath);
-  const watcher = chokidar.watch(`./views/**/${webpackPath.scssEntry}`)
+  const watcher = chokidar.watch(`./views/**/*.scss`);
   watcher.on('all', (event, filePath) => {
     if (event !== 'error') {
-      sasscSimple(filePath);
+      if (filePath.includes(webpackPath.scssEntry)) {
+        sasscSimple(filePath);
+      } else {
+        /* 不是入口的scss改变时，重新编译所有scss文件 */
+        sassc();
+      }
     } else {
       const error = filePath;
       console.error(error);
       watcher.close();
     }
-  })
+  });
   console.log('start watch!');
 }
 
 let env = 'production';
 if (process.argv) {
-  const args = process.argv.filter(arg => arg.slice(0,4) === 'env=');
-  if (args.length > 0)  [,env] = args[args.length - 1].split('=');
+  const args = process.argv.filter(arg => arg.slice(0, 4) === 'env=');
+  if (args.length > 0) [, env] = args[args.length - 1].split('=');
 }
 if (env === 'production') {
   sassc();
