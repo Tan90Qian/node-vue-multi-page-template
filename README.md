@@ -34,7 +34,15 @@ node 及 webpack 相关脚本，用于打包等任务
 
 # package.json scripts 作用
 
+## precommit
+
+husky 在 git commit 前对暂存区文件进行代码校验
+
 ## dev
+
+开启 express 开发环境服务器并对模板引用的 scss 文件进行编译监听
+
+## node-dev
 
 开启 express 开发环境服务器
 
@@ -64,4 +72,32 @@ node 及 webpack 相关脚本，用于打包等任务
 
 ## start
 
-开启 express 生产环境服务器
+通过 pm2 开启 express 生产环境服务器
+
+## delete
+
+关闭并清除 pm2 中的项目应用
+
+## lint
+
+全局校验代码
+
+## lint:fix
+
+全局校验代码并进行简单修复
+
+## lint-style
+
+校验`.scss`和`.vue`文件中的样式
+
+## lint-style:fix
+
+校验`.scss`和`.vue`文件中的样式，并进行简单修复
+
+## lint-staged
+
+执行 package.json 文件底部的校验规则，用于`precommit`钩子
+
+## prettier
+
+格式化 views 目录下的`.scss`、`.js`、`.vue`文件以及 controllers 目录下的`js`文件

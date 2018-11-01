@@ -1,4 +1,5 @@
-/dist/
-/static/
-/scripts/
-/middlewares/
+dist
+static
+scripts
+middlewares
+node_modules
