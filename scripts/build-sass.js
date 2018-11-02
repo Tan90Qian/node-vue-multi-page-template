@@ -29,7 +29,7 @@ function sassc() {
 /* 根据watch编译单个scss文件 */
 function sasscSimple(filePath) {
   const filePathArray = filePath.split(path.sep);
-  const [targetName] = filePathArray.slice(-2);
+  const targetName = filePathArray.slice(2, -1).join('-');
   childProcess.execSync(
     `node-sass ${filePath} static${path.sep}css${path.sep}${targetName}.css`,
     function(error) {

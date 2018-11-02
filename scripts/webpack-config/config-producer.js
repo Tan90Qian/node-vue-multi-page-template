@@ -36,7 +36,7 @@ export function transformEntries(entries, postfix = '') {
     const segments = entry.split(path.sep);
     segments.splice(-1);
     segments.splice(0, 2);
-    const fileName = segments.join(path.sep) + postfix;
+    const fileName = segments.join('-') + postfix;
     output[fileName] = `.${path.sep}${entry}`;
   });
   return output;
@@ -56,6 +56,7 @@ export default function getWebpackConfig(mode) {
   entry.vendors = webpackPath.vendorDependencies;
   let { plugins } = baseConfig;
   if (mode === 'development') {
+    /* 开发环境引入hmr和相关插件 */
     entry.hmr = 'webpack-hot-middleware/client?reload=true';
     plugins = plugins.concat(
       new webpack.HotModuleReplacementPlugin(),
