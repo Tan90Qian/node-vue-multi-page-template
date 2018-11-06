@@ -1,19 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-/**
- * parse mode from command lines (env=xxx), default value is 'production'
- * @return {string} 'development' | 'production'
- */
-function parseMode() {
-  const defaultVal = 'production';
-  const theFields = process.argv.filter(a => a.slice(0, 4) === 'env=');
-  if (theFields.length < 1) return defaultVal;
-  const [, val] = theFields[theFields.length - 1].split('=');
-  if (val !== 'development' && val !== 'production') return defaultVal;
-  else return val;
-}
-
 // app: express instance
 function applyWebpackMiddlewares(app) {
   const configProducer = require('../scripts/webpack-config/config-producer').default;
@@ -78,7 +65,7 @@ function addModeToRender(req, res, next) {
 
 // app: express instance
 export default function(app) {
-  const mode = parseMode();
+  const mode = process.env.NODE_ENV || 'production';
   if (mode === 'development') {
     applyWebpackMiddlewares(app);
     app.use(addModeToRender);

@@ -77,11 +77,7 @@ function sasscDev() {
   console.log('start watch!');
 }
 
-let env = 'production';
-if (process.argv) {
-  const args = process.argv.filter(arg => arg.slice(0, 4) === 'env=');
-  if (args.length > 0) [, env] = args[args.length - 1].split('=');
-}
+const env = process.env.NODE_ENV || 'production';
 if (env === 'production') {
   sassc();
 } else if (env === 'development') {
