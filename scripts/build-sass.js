@@ -43,17 +43,32 @@ function sasscSimple(filePath) {
 
 /* 监听scss文件变化并编译 */
 function sasscDev() {
-  fs.removeSync(webpackPath.cssPath);
+  /* 初始化时先统一编译 */
+  sassc();
   const watcher = chokidar.watch(`./views/**/*.scss`);
+  /* 上一个操作是否是删除文件，用于判断是否是文件的移动 */
+  let lastUnlink = false;
   watcher.on('all', (event, filePath) => {
-    if (event !== 'error') {
+    if (event === 'change') {
       if (filePath.includes(webpackPath.scssEntry)) {
         sasscSimple(filePath);
       } else {
         /* 不是入口的scss改变时，重新编译所有scss文件 */
         sassc();
       }
-    } else {
+      lastUnlink = false;
+    } else if (event === 'unlink') {
+      sassc();
+      lastUnlink = true;
+    } else if (event === 'add' && lastUnlink) {
+      if (filePath.includes(webpackPath.scssEntry)) {
+        sasscSimple(filePath);
+      } else {
+        /* 不是入口的scss改变时，重新编译所有scss文件 */
+        sassc();
+      }
+      lastUnlink = false;
+    } else if (event === 'error') {
       const error = filePath;
       console.error(error);
       watcher.close();
