@@ -3,3 +3,5 @@ package-lock.json
 static/js
 static/css
 dist
+logs/**/*.log
+logs/**/*.err
