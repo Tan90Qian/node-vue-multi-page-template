@@ -19,7 +19,18 @@ function apply404Middlewares(app) {
   });
 }
 
+function applyRequestErrorMiddleware(app) {
+  app.use((error, req, res, next) => {
+    if (error) {
+      res.status(500).send(error);
+    } else {
+      next();
+    }
+  });
+}
+
 // app: express-instance
 export default function(app) {
+  applyRequestErrorMiddleware(app);
   apply404Middlewares(app);
 }
