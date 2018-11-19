@@ -14,14 +14,9 @@ function sassc() {
   scssEntry = transformEntries(scssEntry);
   Object.keys(scssEntry).forEach(entry => {
     const filePath = scssEntry[entry];
-    childProcess.execSync(
-      `node-sass ${filePath} static${path.sep}css${path.sep}${entry}.css`,
-      function(error) {
-        if (error !== null) {
-          console.log('exec error: ' + error);
-        }
-      }
-    );
+    try {
+      childProcess.execSync(`node-sass ${filePath} static${path.sep}css${path.sep}${entry}.css`);
+    } catch (error) {}
   });
   console.log('finish build scss');
 }
@@ -30,14 +25,9 @@ function sassc() {
 function sasscSimple(filePath) {
   const filePathArray = filePath.split(path.sep);
   const targetName = filePathArray.slice(2, -1).join('-');
-  childProcess.execSync(
-    `node-sass ${filePath} static${path.sep}css${path.sep}${targetName}.css`,
-    function(error) {
-      if (error !== null) {
-        console.log('exec error: ' + error);
-      }
-    }
-  );
+  try {
+    childProcess.execSync(`node-sass ${filePath} static${path.sep}css${path.sep}${targetName}.css`);
+  } catch (error) {}
   console.log(`update finish file: ${targetName}`);
 }
 
