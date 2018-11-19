@@ -4,7 +4,6 @@
     <title>test</title>
     <link rel="stylesheet" href={{getCssFileName('/css/site.css')}}>
     {{block 'styles'}}{{/block}}
-    {{include '../hmr.art'}}
   </head>
 
   <body>

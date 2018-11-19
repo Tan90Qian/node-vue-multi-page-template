@@ -28,9 +28,14 @@ function applyWebpackMiddlewares(app) {
 
 /* 重定向hot-update文件保证热更新 */
 function redirectHotReload(req, res, next) {
-  if (req.url.slice(0, 3) !== '/js' && req.url.match(/hot-update.json$/)) {
-    console.log(req.url);
-    res.redirect(`/js${req.url}`);
+  if (req.url.match(/hot-update.json$/)) {
+    const urlArray = req.url.split('/');
+    if (urlArray.length > 2) {
+      const lastPart = urlArray.slice(-1)[0];
+      res.redirect(`/${lastPart}`);
+    } else {
+      next();
+    }
   } else {
     next();
   }

@@ -30,14 +30,18 @@ export function collectFiles(targetFolder, targetFileName, files) {
  * @return {object} { fileName: path }
  * @return {string} fileName: relative path to pages. such as pages/home-bundle
  */
-export function transformEntries(entries, postfix = '') {
+export function transformEntries(entries, postfix = '', needHMR) {
   const output = {};
   entries.forEach(entry => {
     const segments = entry.split(path.sep);
     segments.splice(-1);
     segments.splice(0, 2);
     const fileName = segments.join('-') + postfix;
-    output[fileName] = `.${path.sep}${entry}`;
+    if (needHMR) {
+      output[fileName] = [`.${path.sep}${entry}`, 'webpack-hot-middleware/client'];
+    } else {
+      output[fileName] = `.${path.sep}${entry}`;
+    }
   });
   return output;
 }
@@ -47,17 +51,16 @@ export function transformEntries(entries, postfix = '') {
  */
 export default function getWebpackConfig(mode) {
   let entry = collectFiles(webpackPath.views, webpackPath.vueEntry, []);
-  entry = transformEntries(entry, '-bundle');
+  entry = transformEntries(entry, '-bundle', true);
   /* 模板文件引入的js文件 */
   let es6Entry = collectFiles(webpackPath.views, webpackPath.es6Entry, []);
-  es6Entry = transformEntries(es6Entry);
+  es6Entry = transformEntries(es6Entry, '', true);
   /* 入口整合 */
   entry = { ...entry, ...es6Entry };
   entry.vendors = webpackPath.vendorDependencies;
   let { plugins } = baseConfig;
   if (mode === 'development') {
     /* 开发环境引入hmr和相关插件 */
-    entry.hmr = 'webpack-hot-middleware/client?reload=true';
     plugins = plugins.concat(
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
