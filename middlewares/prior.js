@@ -11,6 +11,7 @@ function applyWebpackMiddlewares(app) {
 
   const config = configProducer('development');
   const compiler = webpack(config);
+  app.use(redirectHotReload);
   app.use(
     middleware(compiler, {
       watchOptions: {
@@ -23,6 +24,16 @@ function applyWebpackMiddlewares(app) {
     })
   );
   app.use(webpackHotMiddleware(compiler));
+}
+
+/* 重定向hot-update文件保证热更新 */
+function redirectHotReload(req, res, next) {
+  if (req.url.slice(0, 3) !== '/js' && req.url.match(/hot-update.json$/)) {
+    console.log(req.url);
+    res.redirect(`/js${req.url}`);
+  } else {
+    next();
+  }
 }
 
 function getFilePath(filePath, map) {
