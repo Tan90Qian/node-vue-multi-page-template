@@ -51,10 +51,10 @@ export function transformEntries(entries, postfix = '', needHMR) {
  */
 export default function getWebpackConfig(mode) {
   let entry = collectFiles(webpackPath.views, webpackPath.vueEntry, []);
-  entry = transformEntries(entry, '-bundle', true);
+  entry = transformEntries(entry, '-bundle', mode === 'development');
   /* 模板文件引入的js文件 */
   let es6Entry = collectFiles(webpackPath.views, webpackPath.es6Entry, []);
-  es6Entry = transformEntries(es6Entry, '', true);
+  es6Entry = transformEntries(es6Entry, '', mode === 'development');
   /* 入口整合 */
   entry = { ...entry, ...es6Entry };
   entry.vendors = webpackPath.vendorDependencies;
