@@ -48,7 +48,7 @@ const baseConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('../src')],
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,

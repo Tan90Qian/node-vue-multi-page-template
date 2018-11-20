@@ -10,7 +10,7 @@ const webpackPath = {
   scssEntry: 'art-style.scss',
   es6Entry: 'art-es6.js',
   transformCssPath: 'static/css',
-  vendorDependencies: ['vue', '@babel/polyfill'],
+  vendorDependencies: ['vue'],
 };
 
 export default webpackPath;
