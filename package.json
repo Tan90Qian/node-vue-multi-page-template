@@ -95,7 +95,7 @@
     "not ie <= 8"
   ],
   "nodemonignore": [
-    "./views/**/*.js", 
+    "./views/**/*.js",
     "!./views/**/art-es6.js",
     "!./views/**/vue-entry.js"
   ]

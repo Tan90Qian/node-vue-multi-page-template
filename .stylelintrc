@@ -2,6 +2,10 @@
   "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
   "processors": ["@mapbox/stylelint-processor-arbitrary-tags"],
   "rules": {
-    "no-empty-source": null
+    "no-empty-source": null,
+    "at-rule-no-unknown": null,
+    "no-invalid-double-slash-comments": null,
+    "property-no-unknown": null,
+    "no-descending-specificity": null,
   }
 }
