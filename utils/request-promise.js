@@ -1,6 +1,6 @@
 import requestPromise from 'request-promise-native';
 
-export default function rp({ url, option = {}, logger }) {
+export default function rp({ url, option = {}, logger, successCode = 1 }) {
   const baseOption = {
     baseUrl: 'http://mnw.com:8888',
     transform(body, response) {
@@ -14,7 +14,7 @@ export default function rp({ url, option = {}, logger }) {
       } else {
         try {
           const { msg, data, code } = JSON.parse(body);
-          if (code === 1) {
+          if (code === successCode) {
             logger &&
               logger.info(`url:${url} cdoe:${code} msg:${msg} data:${JSON.stringify(data)}`);
             /* 请求正常返回 */
@@ -39,5 +39,5 @@ export default function rp({ url, option = {}, logger }) {
     },
   };
 
-  return requestPromise(url, { ...baseOption, option });
+  return requestPromise(url, { ...baseOption, ...option });
 }
