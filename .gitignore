@@ -5,3 +5,4 @@ static/css
 dist
 logs/**/*.log
 logs/**/*.err
+.vscode

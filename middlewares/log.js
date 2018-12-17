@@ -8,29 +8,29 @@ log4js.configure({
       type: 'dateFile',
       filename: path.resolve(__dirname, '../logs/default/everything'),
       pattern: '.yyyy-MM-dd.log',
-      alwaysIncludePattern: true,
+      alwaysIncludePattern: true
     },
     apiGet: {
-      type: 'file',
-      filename: path.resolve(__dirname, '../logs/api/get.log'),
-      maxLogSize: 10485760, // 最大10MB
-      backups: 5, // 保留5个文件
+      type: 'dateFile',
+      filename: path.resolve(__dirname, '../logs/api/get'),
+      pattern: '.yyyy-MM-dd.log',
+      alwaysIncludePattern: true
     },
     apiPost: {
-      type: 'file',
-      filename: path.resolve(__dirname, '../logs/api/post.log'),
-      maxLogSize: 10485760, // 最大10MB
-      backups: 5, // 保留5个文件
-    },
+      type: 'dateFile',
+      filename: path.resolve(__dirname, '../logs/api/post'),
+      pattern: '.yyyy-MM-dd.log',
+      alwaysIncludePattern: true
+    }
   },
   categories: {
     default: { appenders: ['everything'], level: 'DEBUG' },
     console: { appenders: ['output'], level: 'INFO' },
-    get: { appenders: ['apiGet'], level: 'info' },
-    post: { appenders: ['apiPost'], level: 'info' },
+    get: { appenders: ['apiGet'], level: 'INFO' },
+    post: { appenders: ['apiPost'], level: 'INFO' }
   },
   pm2: !!process.env.PM2_CLUSTER,
-  pm2InstanceVar: process.env.PM2_CLUSTER ? process.env.PM2_INSTANCE_VAR : undefined,
+  pm2InstanceVar: process.env.PM2_CLUSTER ? process.env.PM2_INSTANCE_VAR : undefined
 });
 
 export function getLogger(name = 'default', level = 'INFO') {

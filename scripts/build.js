@@ -20,7 +20,7 @@ function copyFiles() {
         /* 复制文件夹、art模板文件和原始css文件 */
         if (!fileName.includes('.')) return true;
         return /\.(art|css)$/.test(fileName);
-      },
+      }
     },
     function(err) {
       if (err) console.log(err);
@@ -47,7 +47,7 @@ function getFilePath(targetPath) {
   return {
     resultFilePath: `${relativePath}${path.sep}${fileName}.${fileMd5}.${postfix}`,
     mapFileName: `${fileName}.${fileMd5}.${postfix}`,
-    fileName,
+    fileName
   };
 }
 
@@ -65,7 +65,7 @@ function copyJsFiles(distPath) {
           return resultFilePath;
         }
         return target;
-      },
+      }
     },
     function(err) {
       if (err) console.log(err);
@@ -90,7 +90,7 @@ function copyCssFiles(distPath) {
           return resultFilePath;
         }
         return target;
-      },
+      }
     },
     function(err) {
       if (err) console.log(err);
@@ -110,7 +110,7 @@ function copyOtherResources(distPath) {
       filter: function(target) {
         if (target.includes('/css/') || target.includes('/js/')) return false;
         return true;
-      },
+      }
     },
     function(err) {
       if (err) console.log(err);

@@ -15,10 +15,10 @@ function applyWebpackMiddlewares(app) {
   app.use(
     middleware(compiler, {
       watchOptions: {
-        poll: true,
+        poll: true
       },
       // publicPath: `/${webpackFolder.distFolder}/`
-      publicPath: '/',
+      publicPath: '/'
       // writeToDisk: true
       // webpack-dev-middleware options
     })
@@ -28,7 +28,7 @@ function applyWebpackMiddlewares(app) {
 
 /* 重定向hot-update文件保证热更新 */
 function redirectHotReload(req, res, next) {
-  if (req.url.match(/hot-update.json$/)) {
+  if (req.url.match(/hot-update.js(on)?$/)) {
     const urlArray = req.url.split('/');
     if (urlArray.length > 2) {
       const lastPart = urlArray.slice(-1)[0];
@@ -72,7 +72,7 @@ function addModeToRender(req, res, next) {
       },
       getJsFileName(filePath) {
         return filePath;
-      },
+      }
     };
     originRender.call(res, view, data, callback);
   };
@@ -103,7 +103,7 @@ export default function(app) {
           },
           getJsFileName(filePath) {
             return getFilePath(filePath, jsMap);
-          },
+          }
         };
         originRender.call(res, view, data, callback);
       };

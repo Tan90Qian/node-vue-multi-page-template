@@ -65,7 +65,7 @@ export default function getWebpackConfig(mode) {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
       new StyleLintPlugin({
-        files: ['**/*.{vue,htm,html,css,scss,sass}'],
+        files: ['**/*.{vue,htm,html,css,scss,sass}']
       })
     );
   }
@@ -74,7 +74,7 @@ export default function getWebpackConfig(mode) {
     mode,
     entry,
     watch: mode === 'development',
-    plugins,
+    plugins
   };
   return webpackConfig;
 }

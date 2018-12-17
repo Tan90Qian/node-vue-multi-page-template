@@ -12,6 +12,9 @@ function resolve(dir) {
 const baseConfig = {
   resolve: {
     extensions: ['.vue', '.js', '.json'],
+    alias: {
+      components: path.resolve(__dirname, path.resolve(__dirname, '../../views/components/'))
+    }
   },
   optimization: {
     splitChunks: {
@@ -19,14 +22,14 @@ const baseConfig = {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
+          chunks: 'all'
+        }
+      }
+    }
   },
   output: {
     path: path.resolve(webpackPath.distPath, '../'),
-    filename: 'js/[name].js',
+    filename: 'js/[name].js'
   },
   module: {
     rules: [
@@ -38,25 +41,25 @@ const baseConfig = {
         options: {
           formatter: require('eslint-friendly-formatter'),
           // Loader will always return warnings if option is set to true
-          emitWarning: true,
-        },
+          emitWarning: true
+        }
       },
       {
         test: /\.vue$/,
-        use: 'vue-loader',
+        use: 'vue-loader'
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader', 'postcss-loader'],
+        use: ['vue-style-loader', 'css-loader', 'postcss-loader']
       },
       {
         test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: ['vue-style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -65,8 +68,8 @@ const baseConfig = {
           limit: 8192,
           name: '[name].[hash:7].[ext]',
           outputPath: process.env.NODE_ENV === 'production' ? '../dist/static/img/' : 'img/',
-          publicPath: '/img/',
-        },
+          publicPath: '/img/'
+        }
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
@@ -75,8 +78,8 @@ const baseConfig = {
           limit: 8192,
           name: '[name].[hash:7].[ext]',
           outputPath: process.env.NODE_ENV === 'production' ? '../dist/static/media/' : 'media/',
-          publicPath: '/media/',
-        },
+          publicPath: '/media/'
+        }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -85,16 +88,16 @@ const baseConfig = {
           limit: 8192,
           name: '[name].[hash:7].[ext]',
           outputPath: process.env.NODE_ENV === 'production' ? '../dist/static/fonts/' : 'fonts/',
-          publicPath: '/fonts/',
-        },
-      },
-    ],
+          publicPath: '/fonts/'
+        }
+      }
+    ]
   },
   watchOptions: {
     ignored: /node_modules/,
-    poll: true,
+    poll: true
   },
-  plugins: [new VueLoaderPlugin()],
+  plugins: [new VueLoaderPlugin()]
 };
 
 export default baseConfig;

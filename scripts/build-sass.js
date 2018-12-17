@@ -16,7 +16,7 @@ function sassc() {
     const filePath = scssEntry[entry];
     try {
       childProcess.execSync(`node-sass ${filePath} static${path.sep}css${path.sep}${entry}.css`);
-    } catch (error) {}
+    } catch (e) {}
   });
   console.log('finish build scss');
 }
@@ -27,7 +27,7 @@ function sasscSimple(filePath) {
   const targetName = filePathArray.slice(2, -1).join('-');
   try {
     childProcess.execSync(`node-sass ${filePath} static${path.sep}css${path.sep}${targetName}.css`);
-  } catch (error) {}
+  } catch (e) {}
   console.log(`update finish file: ${targetName}`);
 }
 
@@ -60,7 +60,6 @@ function sasscDev() {
       lastUnlink = false;
     } else if (event === 'error') {
       const error = filePath;
-      console.error(error);
       watcher.close();
     }
   });

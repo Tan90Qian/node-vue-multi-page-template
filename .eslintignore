@@ -3,3 +3,4 @@ static
 scripts
 middlewares
 node_modules
+*.scss

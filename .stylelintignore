@@ -9,3 +9,4 @@ static
 **/*.eot
 **/*.ttf
 **/*.woff
+*.js
