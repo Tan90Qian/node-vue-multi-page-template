@@ -24,5 +24,5 @@ app.get('/user/:id', userController.user);
 
 applyPostMiddlewares(app);
 
-const port = 3000;
+const port = process.env.NODE_ENV === 'development' ? 3000 : process.env.PORT;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
