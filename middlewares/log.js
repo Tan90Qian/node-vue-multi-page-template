@@ -21,13 +21,20 @@ log4js.configure({
       filename: path.resolve(__dirname, '../logs/api/post'),
       pattern: '.yyyy-MM-dd.log',
       alwaysIncludePattern: true
+    },
+    others: {
+      type: 'file',
+      filename: path.resolve(__dirname, '../logs/default/other.log'),
+      maxLogSize: 10485760, // 最大10MB
+      backups: 5 // 保留5个文件
     }
   },
   categories: {
     default: { appenders: ['everything'], level: 'DEBUG' },
     console: { appenders: ['output'], level: 'INFO' },
     get: { appenders: ['apiGet'], level: 'INFO' },
-    post: { appenders: ['apiPost'], level: 'INFO' }
+    post: { appenders: ['apiPost'], level: 'INFO' },
+    other: { appenders: ['others'], level: 'INFO' }
   },
   pm2: !!process.env.PM2_CLUSTER,
   pm2InstanceVar: process.env.PM2_CLUSTER ? process.env.PM2_INSTANCE_VAR : undefined

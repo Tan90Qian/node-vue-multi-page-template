@@ -1,6 +1,6 @@
 {
-  "name": "mazai-pc",
-  "version": "1.0.0",
+  "name": "mazai-demo",
+  "version": "1.1.0",
   "description": "",
   "private": true,
   "main": "app.js",
@@ -15,7 +15,9 @@
     "build-server": "babel ./ -d dist --ignore node_modules,views,scripts,*.config.js",
     "build-client": "cross-env NODE_ENV=production babel-node ./scripts/build.js target=./dist",
     "start": "pm2 start ecosystem.config.js --env production",
+    "restart": "pm2 restart ecosystem.config.js --env production",
     "start:test": "pm2 start ecosystem.config.js --env test",
+    "restart:test": "pm2 restart ecosystem.config.js --env test",
     "delete": "pm2 delete mazai-pc",
     "lint": "eslint --ext .js,.vue app.js views controllers && npm run lint-style",
     "lint:fix": "eslint --fix --ext .js,.vue app.js views controllers && npm run lint-style:fix",
@@ -86,12 +88,15 @@
     "webpack": "^4.23.1"
   },
   "lint-staged": {
-    "**/*.{vue,js,scss}": [
-      "prettier --write",
-      "eslint --fix",
-      "stylelint --fix",
-      "git add"
-    ]
+    "linters": {
+      "**/*.{vue,js,scss}": [
+        "prettier --write",
+        "eslint --fix",
+        "stylelint --fix",
+        "git add"
+      ]
+    },
+    "ignore": ["dist/**/*"]
   },
   "browserslist": [
     "> 1%",

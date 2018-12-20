@@ -43,7 +43,7 @@ function getFilePath(targetPath) {
   const [fileName, postfix] = fileNameWithPostfix.split('.');
   /* 获取字符串形式的内容，用于生成hash */
   const contentString = fs.readFileSync(targetPath.replace(`dist${path.sep}`, ''), 'utf-8');
-  const fileMd5 = md5(contentString);
+  const fileMd5 = md5(contentString).slice(0, 8);
   return {
     resultFilePath: `${relativePath}${path.sep}${fileName}.${fileMd5}.${postfix}`,
     mapFileName: `${fileName}.${fileMd5}.${postfix}`,

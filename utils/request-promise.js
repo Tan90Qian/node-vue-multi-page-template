@@ -2,7 +2,7 @@ import requestPromise from 'request-promise-native';
 
 export default function rp({ url, option = {}, logger, successCode = 1 }) {
   const baseOption = {
-    baseUrl: 'http://mnw.com:8888',
+    baseUrl: process.env.NODE_ENV === 'development' ? '' : process.env.BASE_URL,
     transform(body, response) {
       const { statusCode } = response;
       if (statusCode < 200 || statusCode >= 300) {
