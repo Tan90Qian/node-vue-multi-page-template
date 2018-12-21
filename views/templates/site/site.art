@@ -2,6 +2,12 @@
 <html lang="en" >
   <head>
     <title>test</title>
+    {{if mode === 'rc'}}
+    <meta name="robots" content="noindex,nofollow,noarchive">
+    {{else}}
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    {{/if}}
     <link rel="stylesheet" href={{getCssFileName('/css/site.css')}}>
     {{block 'styles'}}{{/block}}
   </head>

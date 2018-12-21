@@ -97,6 +97,7 @@ export default function(app) {
       res.render = function(view, data, callback) {
         data = {
           ...data,
+          mode,
           JSON: JSON,
           getCssFileName(filePath) {
             return getFilePath(filePath, cssMap);
