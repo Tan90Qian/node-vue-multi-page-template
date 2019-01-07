@@ -1,3 +1,7 @@
 <footer class="footer">
   I am the footer
+  <p>版权所有2018-{{currentYear}}</p>
+  {{if mode !== 'development'}}
+  <div class="date">{{buildDate + ' ' + appName}}</div>
+  {{/if}}
 </footer>

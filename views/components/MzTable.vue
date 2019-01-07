@@ -50,28 +50,28 @@ export default {
   props: {
     columns: {
       type: Array,
-      required: true,
+      required: true
     },
     dataSource: {
       type: Array,
-      default: function() {
+      default: function () {
         return [];
-      },
+      }
     },
     rowKey: {
-      type: [String, Number],
+      type: [String, Number]
     },
     bordered: {
       type: Boolean,
-      default: false,
+      default: false
     },
     rowClassName: {
-      type: String,
+      type: String
     },
     onRowClick: {
-      type: Function,
-    },
-  },
+      type: Function
+    }
+  }
 };
 </script>
 
@@ -79,13 +79,13 @@ export default {
 .mz-table {
   table {
     width: 100%;
-    line-height: 58px;
     color: #212121;
+    line-height: 58px;
     text-align: center;
     thead {
       background: #d7dbe9;
-      font-size: 18px;
       font-weight: bold;
+      font-size: 18px;
     }
     tbody {
       background: #fff;
@@ -96,8 +96,8 @@ export default {
     }
   }
   .no-data {
-    line-height: 60px;
     color: #212121;
+    line-height: 60px;
     text-align: center;
   }
 }

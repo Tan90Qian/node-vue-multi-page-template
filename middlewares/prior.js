@@ -67,6 +67,7 @@ function addModeToRender(req, res, next) {
       ...data,
       mode: 'development',
       JSON: JSON,
+      currentYear: new Date().getFullYear(),
       getCssFileName(filePath) {
         return filePath;
       },
@@ -89,6 +90,7 @@ export default function(app) {
     /* 获取cssMap数据 */
     const cssMap = fs.readJsonSync(path.resolve(__dirname, '../static/rev/css-map.json'));
     const jsMap = fs.readJsonSync(path.resolve(__dirname, '../static/rev/js-map.json'));
+    const date = fs.readJSONSync(path.resolve(__dirname, '../static/rev/date.json'));
 
     app.use(addCommonFeatureToRender);
 
@@ -99,6 +101,9 @@ export default function(app) {
           ...data,
           mode,
           JSON: JSON,
+          currentYear: new Date().getFullYear(),
+          buildDate: date.buildDate,
+          appName: process.env.APP_NAME,
           getCssFileName(filePath) {
             return getFilePath(filePath, cssMap);
           },

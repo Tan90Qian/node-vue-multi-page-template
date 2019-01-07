@@ -1,5 +1,5 @@
 <template>
-  <div ref="root" :class="cls">
+  <div ref="root">
     <div ref="content">
       <span ref="node">{{ childText }}</span>
       <div class="shadow" ref="shadowChildren">{{ children }}</div>
@@ -12,11 +12,11 @@
 
 <script>
 export default {
-  props: ['cls', 'children', 'lines'],
+  props: ['children', 'lines'],
   data() {
     return {
       text: '',
-      targetCount: 0,
+      targetCount: 0
     };
   },
   mounted() {
@@ -29,7 +29,7 @@ export default {
       if (val !== oldVal) {
         this.computeLine();
       }
-    },
+    }
   },
   methods: {
     computeLine() {
@@ -69,30 +69,27 @@ export default {
         sh = shadowNode.offsetHeight;
         if (sh > th || mid === begin) {
           return mid;
-        } else {
-          begin = mid;
-          if (end - begin === 1) {
-            mid = 1 + begin;
-          } else {
-            mid = Math.floor((end - begin) / 2) + begin;
-          }
-          return this.bisection(th, mid, begin, end, text, shadowNode);
         }
-      } else {
-        if (mid - 1 < 0) {
-          return mid;
-        }
-        shadowNode.innerHTML = text.substring(0, mid - 1) + suffix;
-        sh = shadowNode.offsetHeight;
-        if (sh <= th) {
-          return mid - 1;
+        begin = mid;
+        if (end - begin === 1) {
+          mid = 1 + begin;
         } else {
-          end = mid;
           mid = Math.floor((end - begin) / 2) + begin;
-          return this.bisection(th, mid, begin, end, text, shadowNode);
         }
+        return this.bisection(th, mid, begin, end, text, shadowNode);
       }
-    },
+      if (mid - 1 < 0) {
+        return mid;
+      }
+      shadowNode.innerHTML = text.substring(0, mid - 1) + suffix;
+      sh = shadowNode.offsetHeight;
+      if (sh <= th) {
+        return mid - 1;
+      }
+      end = mid;
+      mid = Math.floor((end - begin) / 2) + begin;
+      return this.bisection(th, mid, begin, end, text, shadowNode);
+    }
   },
   computed: {
     childText() {
@@ -100,9 +97,7 @@ export default {
       return `${targetCount > 0 && text.substring(0, targetCount)}${
         targetCount > 0 && targetCount < text.length ? '...' : ''
       }`;
-    },
-  },
+    }
+  }
 };
 </script>
-
-<style lang="scss" scoped></style>

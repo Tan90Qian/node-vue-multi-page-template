@@ -34,32 +34,32 @@
 export default {
   props: {
     total: {
-      type: Number,
+      type: Number
     },
     current: {
-      type: Number,
+      type: Number
     },
     pageSize: {
-      type: Number,
+      type: Number
     },
     onChange: {
-      type: Function,
+      type: Function
     },
     prevText: {
-      type: String,
+      type: String
     },
     nextText: {
-      type: String,
+      type: String
     },
     center: {
-      type: Boolean,
-    },
+      type: Boolean
+    }
   },
   data() {
     return {
       totalNum: 0,
       currentPage: 1,
-      size: 10,
+      size: 10
     };
   },
   computed: {
@@ -82,7 +82,7 @@ export default {
     },
     onChangeValid() {
       return this.onChange && typeof this.onChange === 'function';
-    },
+    }
   },
   methods: {
     handlePageChange(page) {
@@ -111,8 +111,8 @@ export default {
           }
           break;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -122,17 +122,17 @@ export default {
   .pagination-item,
   .pagination-next {
     float: left;
-    min-width: 40px;
-    line-height: 38px;
-    font-size: 16px;
     box-sizing: border-box;
+    min-width: 40px;
     border: 1px solid #858f98;
     margin-right: 20px;
-    background: #fff;
     color: #858f98;
+    background: #fff;
+    font-size: 16px;
+    line-height: 38px;
     text-align: center;
-    user-select: none;
     cursor: pointer;
+    user-select: none;
   }
 
   .pagination-next {
@@ -140,8 +140,8 @@ export default {
   }
 
   .pagination-item.actived {
-    background: #061c67;
     color: #fff;
+    background: #061c67;
   }
 
   .pagination-prev[data-disabled='true'],
@@ -150,9 +150,9 @@ export default {
   }
 
   &::after {
-    content: '';
-    display: block;
     clear: both;
+    display: block;
+    content: '';
   }
 }
 $paginationHeight: 40px;
@@ -162,9 +162,9 @@ $paginationHeight: 40px;
 
   .pagination-list {
     position: absolute;
-    height: $paginationHeight;
     top: 0;
     left: 50%;
+    height: $paginationHeight;
     transform: translateX(-50%);
   }
 }

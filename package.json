@@ -1,6 +1,6 @@
 {
   "name": "mazai-demo",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "",
   "private": true,
   "main": "app.js",
@@ -20,9 +20,12 @@
     "start:rc": "pm2 start ecosystem.config.js --only mazai-demo-rc",
     "restart:rc": "pm2 restart ecosystem.config.js --only mazai-demo-rc",
     "delete:rc": "pm2 delete mazai-demo-rc",
-    "start": "pm2 start ecosystem.config.js --only mazai-demo",
-    "restart": "pm2 restart ecosystem.config.js --only mazai-demo",
-    "delete": "pm2 delete mazai-demo",
+    "start:1": "pm2 start ecosystem.config.js --only mazai-demo-1",
+    "restart:1": "pm2 restart ecosystem.config.js --only mazai-demo-1",
+    "delete:1": "pm2 delete mazai-demo-1",
+    "start:2": "pm2 start ecosystem.config.js --only mazai-demo-2",
+    "restart:2": "pm2 restart ecosystem.config.js --only mazai-demo-2",
+    "delete:2": "pm2 delete mazai-demo-2",
     "lint": "eslint --ext .js,.vue app.js views controllers && npm run lint-style",
     "lint:fix": "eslint --fix --ext .js,.vue app.js views controllers && npm run lint-style:fix",
     "lint-style": "stylelint \"views/**/*.{scss,vue}\"",
@@ -100,7 +103,9 @@
         "git add"
       ]
     },
-    "ignore": ["dist/**/*"]
+    "ignore": [
+      "dist/**/*"
+    ]
   },
   "browserslist": [
     "> 1%",
