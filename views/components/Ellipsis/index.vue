@@ -1,5 +1,5 @@
 <template>
-  <span v-if="!lines && !length" :class="cls">{{ children }}</span>
+  <span v-if="!lines && !length" :class="cls"> <slot></slot> </span>
   <EllipsisText
     v-else-if="!lines"
     :class="cls"
