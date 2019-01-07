@@ -47,6 +47,7 @@
 </template>
 <script>
 export default {
+  name: 'MzTable',
   props: {
     columns: {
       type: Array,

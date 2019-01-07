@@ -67,6 +67,7 @@
 
 <script>
 export default {
+  name: 'Pagination',
   props: {
     total: {
       type: Number
@@ -119,7 +120,8 @@ export default {
       const { cCurrent, pageData } = this;
       if (cCurrent <= 3) {
         return pageData.slice(1, 5);
-      } if (cCurrent >= pageData.length - 2) {
+      }
+      if (cCurrent >= pageData.length - 2) {
         return pageData.slice(-5, -1);
       }
       return pageData.slice(cCurrent - 3, cCurrent + 2);

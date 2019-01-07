@@ -17,6 +17,7 @@
 
 <script>
 export default {
+  name: 'MzInput',
   props: {
     type: {
       type: String,

@@ -25,6 +25,7 @@
 import EllipsisNoWebkit from './EllipsisNoWebkit';
 import EllipsisText from './EllipsisText';
 export default {
+  name: 'Ellipsis',
   props: {
     lines: {
       type: Number

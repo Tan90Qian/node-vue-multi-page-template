@@ -12,6 +12,7 @@
 
 <script>
 export default {
+  name: 'EllipsisNoWebkit',
   props: ['children', 'lines'],
   data() {
     return {
