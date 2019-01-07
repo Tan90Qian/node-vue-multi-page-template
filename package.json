@@ -32,14 +32,16 @@
     "lint-style:fix": "stylelint \"views/**/*.{scss,vue}\" --fix",
     "lint-staged": "lint-staged",
     "prettier": "prettier --write \"views/**/*.{js,scss,vue}\" \"controllers/**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --config jest.config.js"
   },
   "author": "MNW-FE",
   "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.28",
     "autoprefixer": "^9.3.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -57,6 +59,7 @@
     "file-loader": "^2.0.0",
     "fs-extra": "^7.0.0",
     "husky": "^1.1.2",
+    "jest": "^23.6.0",
     "lint-staged": "^8.0.3",
     "ncp": "^2.0.0",
     "node-sass": "^4.9.4",
@@ -72,6 +75,7 @@
     "stylelint-order": "^2.0.0",
     "stylelint-webpack-plugin": "^0.10.5",
     "url-loader": "^1.1.2",
+    "vue-jest": "^3.0.2",
     "vue-loader": "^15.4.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.17",

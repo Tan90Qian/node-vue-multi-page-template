@@ -1,4 +1,9 @@
 {
-  "presets": ["env", "stage-2"],
+  "presets": [["env", { "modules": false }], "stage-2"],
+  "env": {
+    "test": {
+      "presets": [["env", { "targets": { "node": "current" } }], "stage-2"]
+    }
+  },
   "plugins": ["transform-vue-jsx", "transform-runtime"]
 }
