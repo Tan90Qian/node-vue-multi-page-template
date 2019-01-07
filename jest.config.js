@@ -10,7 +10,7 @@ module.exports = {
     '.*\\.(vue)$': 'vue-jest'
   },
   moduleNameMapper: {
-    '^components/(.*)$': '<rootDir>/views/components/'
+    '^components/(.*)$': '<rootDir>/views/components/$1'
   },
   transform: {
     // 用 `babel-jest` 处理 js

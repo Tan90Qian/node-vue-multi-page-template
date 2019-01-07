@@ -1,5 +1,5 @@
 describe('canary test', () => {
-  test('should pass this canary test', () => {
+  it('should pass this canary test', () => {
     expect(true).toBe(true);
   });
 });

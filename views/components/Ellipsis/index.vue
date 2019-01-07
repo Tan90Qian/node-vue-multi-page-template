@@ -6,7 +6,7 @@
     :length="length"
     :text="childrenText"
     :fullWidthRecognition="fullWidthRecognition"
-  />
+  ></EllipsisText>
   <div
     v-else-if="isSupportLineClamp"
     :class="cls"
@@ -18,7 +18,7 @@
   >
     <slot></slot>
   </div>
-  <EllipsisNoWebkit v-else :class="cls" :lines="lines" :children="childrenText" />
+  <EllipsisNoWebkit v-else :class="cls" :lines="lines" :children="childrenText"></EllipsisNoWebkit>
 </template>
 
 <script>
