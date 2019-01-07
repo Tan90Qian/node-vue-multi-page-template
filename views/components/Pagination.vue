@@ -9,15 +9,50 @@
       >
         {{ prevText || '&lt;' }}
       </li>
-      <li
-        :class="['pagination-item', value === cCurrent ? 'actived' : '']"
-        v-for="value in pageData"
-        :key="value"
-        :title="value"
-        @click="handlePageChange(value);"
-      >
-        {{ value }}
-      </li>
+      <template v-if="pageData.length <= 5">
+        <li
+          :class="['pagination-item', value === cCurrent ? 'actived' : '']"
+          v-for="value in pageData"
+          :key="value"
+          :title="value"
+          @click="handlePageChange(value);"
+        >
+          {{ value }}
+        </li>
+      </template>
+      <template v-else>
+        <li
+          :class="['pagination-item', cCurrent == 1 ? 'actived' : '']"
+          :title="1"
+          @click="handlePageChange(1);"
+        >
+          1
+        </li>
+        <li v-if="cCurrent >= 5" class="pagination-item" @click="handlePageChange('left');">...</li>
+        <li
+          :class="['pagination-item', value === cCurrent ? 'actived' : '']"
+          v-for="value in showedPage"
+          :key="value"
+          :title="value"
+          @click="handlePageChange(value);"
+        >
+          {{ value }}
+        </li>
+        <li
+          v-if="cCurrent <= pageData.length - 4"
+          class="pagination-item"
+          @click="handlePageChange('right');"
+        >
+          ...
+        </li>
+        <li
+          :class="['pagination-item', cCurrent == pageData.length ? 'actived' : '']"
+          :title="pageData.length"
+          @click="handlePageChange(pageData.length);"
+        >
+          {{ pageData.length }}
+        </li>
+      </template>
       <li
         class="pagination-next"
         title="下一页"
@@ -80,32 +115,61 @@ export default {
       }
       return result;
     },
+    showedPage() {
+      const { cCurrent, pageData } = this;
+      if (cCurrent <= 3) {
+        return pageData.slice(1, 5);
+      } if (cCurrent >= pageData.length - 2) {
+        return pageData.slice(-5, -1);
+      }
+      return pageData.slice(cCurrent - 3, cCurrent + 2);
+    },
     onChangeValid() {
       return this.onChange && typeof this.onChange === 'function';
     }
   },
   methods: {
     handlePageChange(page) {
+      const { cCurrent, pageData, onChange, cSize, onChangeValid } = this;
+      let target;
       switch (page) {
         case 'prev':
-          if (this.cCurrent === 1) break;
-          if (this.onChangeValid) {
-            this.onChange(this.cCurrent - 1, this.cSize);
+          if (cCurrent === 1) break;
+          if (onChangeValid) {
+            onChange(cCurrent - 1, cSize);
           } else {
             this.currentPage -= 1;
           }
           break;
         case 'next':
-          if (this.cCurrent === this.pageData.length) break;
-          if (this.onChangeValid) {
-            this.onChange(this.cCurrent + 1, this.cSize);
+          if (cCurrent === pageData.length) break;
+          if (onChangeValid) {
+            onChange(cCurrent + 1, cSize);
           } else {
             this.currentPage += 1;
           }
           break;
+        case 'left':
+          target = cCurrent - 5;
+          if (target < 1) target = 1;
+          if (onChangeValid) {
+            onChange(target, cSize);
+          } else {
+            this.currentPage = target;
+          }
+          break;
+        case 'right':
+          target = cCurrent + 5;
+          if (target > pageData.length) target = pageData.length;
+          if (onChangeValid) {
+            onChange(target, cSize);
+          } else {
+            this.currentPage = target;
+          }
+          break;
         default:
-          if (this.onChangeValid) {
-            this.onChange(page, this.cSize);
+          if (onChangeValid) {
+            onChange(page, cSize);
           } else {
             this.currentPage = page;
           }
@@ -124,8 +188,9 @@ export default {
     float: left;
     box-sizing: border-box;
     min-width: 40px;
+    padding: 0 13px;
     border: 1px solid #858f98;
-    margin-right: 20px;
+    margin-right: 5px;
     color: #858f98;
     background: #fff;
     font-size: 16px;
@@ -137,6 +202,10 @@ export default {
 
   .pagination-next {
     margin-right: 0;
+  }
+
+  .pagination-item:hover {
+    border-color: #858f98;
   }
 
   .pagination-item.actived {
@@ -157,15 +226,12 @@ export default {
 }
 $paginationHeight: 40px;
 .pagination.center {
-  position: relative;
   height: $paginationHeight;
+  text-align: center;
 
   .pagination-list {
-    position: absolute;
-    top: 0;
-    left: 50%;
+    display: inline-block;
     height: $paginationHeight;
-    transform: translateX(-50%);
   }
 }
 </style>
