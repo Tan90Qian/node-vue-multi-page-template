@@ -136,6 +136,6 @@ compiler.run((err, stats) => {
   /* 生成记录打包时间的json文件 */
   const buildTime = new Date();
   fs.writeJsonSync(path.resolve(__dirname, '../dist/static/rev/date.json'), {
-    buildDate: buildTime.toLocaleDateString()
+    buildDate: `${buildTime.toLocaleDateString()} ${buildTime.toLocaleTimeString()}`
   });
 });
