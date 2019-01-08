@@ -10,7 +10,6 @@
   <div
     v-else-if="isSupportLineClamp"
     :class="cls"
-    :title="childrenText"
     :style="{
       '-webkit-line-clamp': lines,
       '-webkit-box-orient': 'vertical'
@@ -43,7 +42,7 @@ export default {
       return document.body.style.webkitLineClamp !== undefined;
     },
     cls() {
-      const { lines } = this;
+      const { lines, isSupportLineClamp } = this;
       return {
         ellipsis: true,
         lines: lines && !isSupportLineClamp,
@@ -52,7 +51,7 @@ export default {
     },
     childrenText() {
       const children = this.$slots.default;
-      return children[0].text || '';
+      return children ? children[0].text : '';
     }
   }
 };

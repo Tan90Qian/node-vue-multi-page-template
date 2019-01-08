@@ -1,6 +1,6 @@
 <template>
   <span v-if="!text"></span> <span v-else-if="ifRenderText">{{ text }}</span>
-  <span v-else :title="text">{{ displayText }} {{ tail }}</span>
+  <span v-else>{{ displayText }}{{ tail }}</span>
 </template>
 
 <script>
@@ -32,26 +32,24 @@ export const cutStrByFullLength = (str = '', maxLength) => {
 
 export default {
   name: 'EllipsisText',
-  props: ['text', 'length'],
+  props: {
+    text: String,
+    length: Number,
+    fullWidthRecognition: Boolean
+  },
   data() {
     return {
       tail: '...'
     };
   },
-  mounted() {
-    const { text } = this;
-    if (typeof text !== 'string') {
-      throw new Error('Ellipsis children must be string.');
-    }
-  },
   computed: {
     ifRenderText() {
-      const { text, length } = this;
+      const { text, length, fullWidthRecognition } = this;
       const textLength = fullWidthRecognition ? getStrFullLength(text) : text.length;
       return textLength <= length || length < 0;
     },
     displayText() {
-      const { text, length, tail } = this;
+      const { text, length, fullWidthRecognition, tail } = this;
       if (length - tail.length <= 0) {
         return '';
       }
