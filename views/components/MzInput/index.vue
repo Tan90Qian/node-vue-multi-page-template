@@ -76,7 +76,7 @@ export default {
       if (!hasProp(this, 'value')) {
         this.stateValue = e.target.value;
       } else {
-        this.$forceUpdate();
+        // this.$forceUpdate();
       }
       if (!e.target.composing) {
         this.$emit('change.value', e.target.value);

@@ -72,6 +72,41 @@ describe('MzInput tests', () => {
     });
   });
 
+  it('input should have default value when defaultValue was given', () => {
+    const wrapper = mount(MzInput, {
+      propsData: {
+        defaultValue: 'test'
+      }
+    });
+    const input = wrapper.find({ ref: 'input' });
+
+    expect(input.element.value).toBe('test');
+  });
+
+  it('input should update value when it was given', () => {
+    const wrapper = mount(MzInput, {
+      propsData: {
+        value: ''
+      }
+    });
+    const input = wrapper.find({ ref: 'input' });
+    input.setValue('test');
+    input.setValue('test2');
+
+    expect(wrapper.emitted()['change.value']).toBeTruthy();
+    expect(wrapper.emitted()['change.value'].length).toBe(2);
+    expect(wrapper.emitted()['change.value'][0]).toEqual(['test']);
+  });
+
+  it('input should emit onEnter when press down enter key', () => {
+    const wrapper = mount(MzInput);
+    const input = wrapper.find({ ref: 'input' });
+    input.trigger('keydown.enter');
+
+    expect(wrapper.emitted().onEnter).toBeTruthy();
+    expect(wrapper.emitted().onEnter.length).toBe(1);
+  });
+
   /* slot tests */
   it('should not render prefix div when prefix slot absent', () => {
     const wrapper = mount(MzInput);
