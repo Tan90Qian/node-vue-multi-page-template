@@ -77,12 +77,12 @@ export default {
         this.stateValue = e.target.value;
       } else {
         // this.$forceUpdate();
+        if (!e.target.composing) {
+          this.$emit('change.value', e.target.value);
+        }
+        this.$emit('change', e);
+        this.$emit('input', e);
       }
-      if (!e.target.composing) {
-        this.$emit('change.value', e.target.value);
-      }
-      this.$emit('change', e);
-      this.$emit('input', e);
     },
     handleFocus() {
       this.$emit('onFocus');

@@ -1,7 +1,7 @@
 <template>
   <div class="vue1">
     <span>Vue slot 1s2342</span> <span>{{ test }}</span>
-    <MzInput class="extra" v-model="text"></MzInput>
+    <MzInput class="extra"></MzInput>
   </div>
 </template>
 
