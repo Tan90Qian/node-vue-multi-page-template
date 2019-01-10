@@ -1,7 +1,7 @@
 <template>
   <div class="mz-table">
     <div class="mz-table-header">
-      <table :border="bordered ? undefined : 0" :cellspacing="bordered ? undefined : 0">
+      <table :border="bordered ? 1 : 0" :cellspacing="bordered ? undefined : 0">
         <thead>
           <th
             v-for="(column, index) in columns"
@@ -16,28 +16,24 @@
     <div class="mz-table-body">
       <table
         v-if="dataSource.length"
-        :border="bordered ? undefined : 0"
+        :border="bordered ? 1 : 0"
         :cellspacing="bordered ? undefined : 0"
       >
         <tbody>
           <tr
-            v-for="(item, index) in dataSource"
-            :key="rowKey ? item[rowKey] : index"
-            :class="rowClassName"
+            v-for="(record, index) in dataSource"
+            :key="rowKey ? record[rowKey] : index"
+            :class="typeof rowClassName === 'function' ? rowClassName(record, index) : rowClassName"
             :style="{ cursor: typeof onRowClick === 'function' ? 'pointer' : 'default' }"
-            @click="typeof onRowClick === 'function' ? onRowClick(item, index) : undefined;"
+            @click="typeof onRowClick === 'function' ? onRowClick(record, index) : undefined;"
           >
-            <td
+            <mz-table-cell
               v-for="(column, index) in columns"
               :key="column.key || column.dataIndex || index"
-              :width="column.width"
-            >
-              {{
-                typeof column.render === 'function'
-                  ? column.render(item[column.dataIndex], item, index)
-                  : item[column.dataIndex]
-              }}
-            </td>
+              :column="column"
+              :record="record"
+              :index="index"
+            ></mz-table-cell>
           </tr>
         </tbody>
       </table>
@@ -46,8 +42,13 @@
   </div>
 </template>
 <script>
+import MzTableCell from './MzTableCell';
+
 export default {
   name: 'MzTable',
+  components: {
+    MzTableCell
+  },
   props: {
     columns: {
       type: Array,
@@ -59,19 +60,13 @@ export default {
         return [];
       }
     },
-    rowKey: {
-      type: [String, Number]
-    },
+    rowKey: [String, Number],
     bordered: {
       type: Boolean,
       default: false
     },
-    rowClassName: {
-      type: String
-    },
-    onRowClick: {
-      type: Function
-    }
+    rowClassName: [String, Function],
+    onRowClick: Function
   }
 };
 </script>
