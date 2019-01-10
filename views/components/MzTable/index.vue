@@ -1,44 +1,36 @@
 <template>
   <div class="mz-table">
-    <div class="mz-table-header">
-      <table :border="bordered ? 1 : 0" :cellspacing="bordered ? undefined : 0">
-        <thead>
-          <th
-            v-for="(column, index) in columns"
-            :key="column.key || column.dataIndex || index"
-            :width="column.width"
-          >
-            {{ column.title }}
-          </th>
-        </thead>
-      </table>
-    </div>
-    <div class="mz-table-body">
-      <table
-        v-if="dataSource.length"
-        :border="bordered ? 1 : 0"
-        :cellspacing="bordered ? undefined : 0"
-      >
-        <tbody>
-          <tr
-            v-for="(record, index) in dataSource"
-            :key="rowKey ? record[rowKey] : index"
-            :class="typeof rowClassName === 'function' ? rowClassName(record, index) : rowClassName"
-            :style="{ cursor: typeof onRowClick === 'function' ? 'pointer' : 'default' }"
-            @click="typeof onRowClick === 'function' ? onRowClick(record, index) : undefined;"
-          >
-            <mz-table-cell
-              v-for="(column, index) in columns"
-              :key="column.key || column.dataIndex || index"
-              :column="column"
-              :record="record"
-              :index="index"
-            ></mz-table-cell>
-          </tr>
-        </tbody>
-      </table>
-      <div v-else class="no-data">暂无数据</div>
-    </div>
+    <table :border="bordered ? 1 : 0" :cellspacing="bordered ? undefined : 0">
+      <thead>
+        <th
+          v-for="(column, index) in columns"
+          :key="column.key || column.dataIndex || index"
+          :width="column.width"
+        >
+          {{ column.title }}
+        </th>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(record, rowIndex) in dataSource"
+          :key="rowKey ? record[rowKey] : rowIndex"
+          :class="
+            typeof rowClassName === 'function' ? rowClassName(record, rowIndex) : rowClassName
+          "
+          :style="{ cursor: typeof onRowClick === 'function' ? 'pointer' : 'default' }"
+          @click="typeof onRowClick === 'function' ? onRowClick(record, rowIndex) : undefined;"
+        >
+          <mz-table-cell
+            v-for="(column, colIndex) in columns"
+            :key="column.key || column.dataIndex || colIndex"
+            :column="column"
+            :record="record"
+            :index="rowIndex"
+          ></mz-table-cell>
+        </tr>
+      </tbody>
+    </table>
+    <div v-if="!dataSource || !dataSource.length" class="no-data">暂无数据</div>
   </div>
 </template>
 <script>

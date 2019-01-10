@@ -3,19 +3,15 @@ import { mount } from '@vue/test-utils';
 import MzTable from '../index';
 
 describe('MzTable tests', () => {
-  it('should render .mz-table , .mz-table-header and .mz-table-body', () => {
+  it('should render .mz-table', () => {
     const wrapper = mount(MzTable, {
       propsData: {
         columns: []
       }
     });
     const mzTable = wrapper.find('.mz-table');
-    const mzTableHeader = wrapper.find('.mz-table-header');
-    const mzTableBody = wrapper.find('.mz-table-body');
 
     expect(mzTable.exists()).toBe(true);
-    expect(mzTableHeader.exists()).toBe(true);
-    expect(mzTableBody.exists()).toBe(true);
   });
 
   it('should render .no-data when dataSource was absent', () => {
@@ -36,13 +32,9 @@ describe('MzTable tests', () => {
         bordered: true
       }
     });
-    const tableArray = wrapper.findAll('table');
-    const headerTable = tableArray.at(0);
-    const bodyTable = tableArray.at(1);
-    expect(headerTable.attributes('border')).toBe('1');
-    expect(headerTable.attributes('cellspacing')).toBeFalsy();
-    expect(bodyTable.attributes('border')).toBe('1');
-    expect(bodyTable.attributes('cellspacing')).toBeFalsy();
+    const table = wrapper.find('table');
+    expect(table.attributes('border')).toBe('1');
+    expect(table.attributes('cellspacing')).toBeFalsy();
   });
 
   it('should hide border and cellspacing when bordered props was false or absent', () => {
@@ -52,13 +44,9 @@ describe('MzTable tests', () => {
         dataSource: [{}]
       }
     });
-    const tableArray = wrapper.findAll('table');
-    const headerTable = tableArray.at(0);
-    const bodyTable = tableArray.at(1);
-    expect(headerTable.attributes('border')).toBe('0');
-    expect(headerTable.attributes('cellspacing')).toBe('0');
-    expect(bodyTable.attributes('border')).toBe('0');
-    expect(bodyTable.attributes('cellspacing')).toBe('0');
+    const table = wrapper.find('table');
+    expect(table.attributes('border')).toBe('0');
+    expect(table.attributes('cellspacing')).toBe('0');
   });
 
   it('should have correct number of th', () => {
