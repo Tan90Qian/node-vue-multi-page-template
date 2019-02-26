@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ellipsis tests renders correctly 1`] = `
+<span
+  class="ellipsis"
+>
+  一二，a,
+</span>
+`;

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination tests renders correctly 1`] = `
+<div
+  class="pagination"
+>
+  <ul
+    class="pagination-list"
+  >
+    <li
+      class="pagination-prev"
+      data-disabled="true"
+      title="&lt;"
+    >
+      &lt;
+    </li>
+     
+    <li
+      class="pagination-item actived"
+      title="1"
+    >
+      
+        1
+      
+    </li>
+     
+    <li
+      class="pagination-next"
+      data-disabled="true"
+      title="&gt;"
+    >
+      &gt;
+    </li>
+  </ul>
+</div>
+`;

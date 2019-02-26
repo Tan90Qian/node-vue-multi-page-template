@@ -19,6 +19,14 @@ describe('MzTableCell tests', () => {
       index: 0
     };
   });
+  /* snapshot test */
+  test('renders correctly', () => {
+    const wrapper = mount(MzTableCell, {
+      propsData
+    });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+  /* render test */
   it('should render simple td by default', () => {
     const wrapper = mount(MzTableCell, {
       propsData

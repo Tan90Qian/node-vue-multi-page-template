@@ -8,7 +8,16 @@ describe('Ellipsis tests', () => {
   beforeEach(() => {
     children = '一二，a,';
   });
-
+  /* snapshot test */
+  test('renders correctly', () => {
+    const wrapper = shallowMount(Ellipsis, {
+      slots: {
+        default: [children]
+      }
+    });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+  /* render test */
   it('render span when absent lines and length', () => {
     const wrapper = shallowMount(Ellipsis, {
       slots: {

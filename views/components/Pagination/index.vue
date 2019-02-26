@@ -6,17 +6,16 @@
         :title="prevText"
         v-if="!(hideOnDisabled && stateCurrent === 1)"
         :data-disabled="stateCurrent === 1"
-        @click="handleCurrentChange('prev');"
-      >
-        {{ prevText }}
-      </li>
+        @click="handleCurrentChange('prev')"
+        v-html="prevText"
+      ></li>
       <template v-if="pageData.length <= 5">
         <li
           :class="['pagination-item', value === stateCurrent ? 'actived' : '']"
           v-for="value in pageData"
           :key="value"
           :title="value"
-          @click="handleCurrentChange(value);"
+          @click="handleCurrentChange(value)"
         >
           {{ value }}
         </li>
@@ -25,14 +24,14 @@
         <li
           :class="['pagination-item', stateCurrent == 1 ? 'actived' : '']"
           :title="1"
-          @click="handleCurrentChange(1);"
+          @click="handleCurrentChange(1)"
         >
           1
         </li>
         <li
           v-if="stateCurrent >= 5"
           class="pagination-item left"
-          @click="handleCurrentChange('left');"
+          @click="handleCurrentChange('left')"
         >
           ...
         </li>
@@ -41,21 +40,21 @@
           v-for="value in showedPage"
           :key="value"
           :title="value"
-          @click="handleCurrentChange(value);"
+          @click="handleCurrentChange(value)"
         >
           {{ value }}
         </li>
         <li
           v-if="stateCurrent <= pageData.length - 4"
           class="pagination-item right"
-          @click="handleCurrentChange('right');"
+          @click="handleCurrentChange('right')"
         >
           ...
         </li>
         <li
           :class="['pagination-item', stateCurrent == pageData.length ? 'actived' : '']"
           :title="pageData.length"
-          @click="handleCurrentChange(pageData.length);"
+          @click="handleCurrentChange(pageData.length)"
         >
           {{ pageData.length }}
         </li>
@@ -65,10 +64,9 @@
         :title="nextText"
         v-if="!(hideOnDisabled && stateCurrent === pageData.length)"
         :data-disabled="stateCurrent === pageData.length"
-        @click="handleCurrentChange('next');"
-      >
-        {{ nextText }}
-      </li>
+        @click="handleCurrentChange('next')"
+        v-html="nextText"
+      ></li>
     </ul>
   </div>
 </template>
@@ -205,6 +203,7 @@ export default {
   .pagination-item,
   .pagination-next {
     float: left;
+    list-style: none;
     box-sizing: border-box;
     min-width: 40px;
     padding: 0 13px;

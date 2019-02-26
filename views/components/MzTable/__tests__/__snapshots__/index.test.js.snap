@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MzTable tests renders correctly 1`] = `
+<div
+  class="mz-table"
+>
+  <table
+    border="0"
+    cellspacing="0"
+  >
+    <thead />
+     
+    <tbody />
+  </table>
+   
+  <div
+    class="no-data"
+  >
+    暂无数据
+  </div>
+</div>
+`;

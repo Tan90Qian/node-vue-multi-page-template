@@ -13,7 +13,8 @@ module.exports = {
   },
   moduleNameMapper: {
     '^components/(.*)$': '<rootDir>/views/components/$1'
-  }
+  },
+  snapshotSerializers: ['jest-serializer-vue']
   // collectCoverage: true,
   // collectCoverageFrom: [
   //   'controller/**/*.{js,vue}',

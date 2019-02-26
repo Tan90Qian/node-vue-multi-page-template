@@ -3,6 +3,11 @@ import { mount } from '@vue/test-utils';
 import Pagination from '../index';
 
 describe('Pagination tests', () => {
+  /* snapshot test */
+  test('renders correctly', () => {
+    const wrapper = mount(Pagination);
+    expect(wrapper.element).toMatchSnapshot();
+  });
   /* render test */
   it('should render ul and at least one li', () => {
     const wrapper = mount(Pagination);
@@ -71,9 +76,9 @@ describe('Pagination tests', () => {
     const next = wrapper.find('.pagination-next');
 
     expect(prev.exists()).toBe(true);
-    expect(prev.text()).toBe('&lt;');
+    expect(prev.text()).toBe('<');
     expect(next.exists()).toBe(true);
-    expect(next.text()).toBe('&gt;');
+    expect(next.text()).toBe('>');
   });
 
   it("should change prev and next item's text", () => {

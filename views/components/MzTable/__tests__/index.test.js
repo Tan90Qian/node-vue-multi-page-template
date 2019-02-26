@@ -3,6 +3,16 @@ import { mount } from '@vue/test-utils';
 import MzTable from '../index';
 
 describe('MzTable tests', () => {
+  /* snapshot test */
+  test('renders correctly', () => {
+    const wrapper = mount(MzTable, {
+      propsData: {
+        columns: []
+      }
+    });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+  /* render test */
   it('should render .mz-table', () => {
     const wrapper = mount(MzTable, {
       propsData: {

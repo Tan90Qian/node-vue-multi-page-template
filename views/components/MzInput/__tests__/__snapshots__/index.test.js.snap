@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MzInput tests renders correctly 1`] = `
+<span
+  class="mz-input"
+>
+  <!---->
+   
+  <input
+    placeholder="请输入"
+    type="text"
+  />
+   
+  <!---->
+</span>
+`;

@@ -4,6 +4,11 @@ import Vue from 'vue';
 import MzInput from '../index';
 
 describe('MzInput tests', () => {
+  /* snapshot test */
+  test('renders correctly', () => {
+    const wrapper = mount(MzInput);
+    expect(wrapper.element).toMatchSnapshot();
+  });
   /* input tests */
   it('render input', () => {
     const wrapper = mount(MzInput);
