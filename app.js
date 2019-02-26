@@ -16,6 +16,7 @@ app.use(useLog(defaultLogger));
 
 applyPriorMiddlewares(app);
 app.use(express.static(path.resolve(__dirname, 'static')));
+app.use(express.static(path.resolve(__dirname, 'public')));
 
 // router
 app.get('/', homeController.index);
