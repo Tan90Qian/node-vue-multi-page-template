@@ -32,7 +32,7 @@ function copyFiles() {
   fs.ensureDirSync(`${distPath}/static/rev`);
   copyJsFiles(distPath);
   copyCssFiles(distPath);
-  copyOtherResources(distPath);
+  copyPublicFiles(distPath);
 }
 
 /* 获取md5后的文件路径以及跟原文件的映射关系 */
@@ -53,7 +53,7 @@ function getFilePath(targetPath) {
 
 function copyJsFiles(distPath) {
   const jsMap = {};
-  /* 拷贝dist目录 */
+  /* 拷贝js目录 */
   ncp(
     'static/js',
     `${distPath}/static/js`,
@@ -101,22 +101,12 @@ function copyCssFiles(distPath) {
   );
 }
 
-function copyOtherResources(distPath) {
+function copyPublicFiles(distPath) {
   /* 拷贝其余静态资源 */
-  ncp(
-    'static',
-    `${distPath}/static`,
-    {
-      filter: function(target) {
-        if (target.includes('/css/') || target.includes('/js/')) return false;
-        return true;
-      }
-    },
-    function(err) {
-      if (err) console.log(err);
-      console.log('copy static resource folder success');
-    }
-  );
+  ncp('public', `${distPath}/public`, function(err) {
+    if (err) console.log(err);
+    console.log('copy public resource folder success');
+  });
 }
 
 const webpackConfig = configProducer('production');
@@ -128,10 +118,10 @@ compiler.run((err, stats) => {
   }
   console.log('build success');
   /* 创建日志目录 */
-  fs.ensureDirSync(path.resolve(__dirname, '../dist/logs'));
-  fs.ensureDirSync(path.resolve(__dirname, '../dist/logs/pm2'));
-  fs.ensureDirSync(path.resolve(__dirname, '../dist/logs/default'));
-  fs.ensureDirSync(path.resolve(__dirname, '../dist/logs/api'));
+  fs.ensureDirSync(path.resolve(__dirname, '../logs'));
+  fs.ensureDirSync(path.resolve(__dirname, '../logs/pm2'));
+  fs.ensureDirSync(path.resolve(__dirname, '../logs/default'));
+  fs.ensureDirSync(path.resolve(__dirname, '../logs/api'));
   copyFiles();
   /* 生成记录打包时间的json文件 */
   const buildTime = new Date();

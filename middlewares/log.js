@@ -1,30 +1,37 @@
 import log4js from 'log4js';
 import path from 'path';
 
+const getFilePath = (function() {
+  const middlePath = process.env.NODE_ENV === 'development' ? '../logs' : '../../logs';
+  return function(childPath) {
+    return path.resolve(__dirname, middlePath, childPath);
+  };
+})();
+
 log4js.configure({
   appenders: {
     output: { type: 'console' },
     everything: {
       type: 'dateFile',
-      filename: path.resolve(__dirname, '../logs/default/everything'),
+      filename: getFilePath('default/everything'),
       pattern: '.yyyy-MM-dd.log',
       alwaysIncludePattern: true
     },
     apiGet: {
       type: 'dateFile',
-      filename: path.resolve(__dirname, '../logs/api/get'),
+      filename: getFilePath('api/get'),
       pattern: '.yyyy-MM-dd.log',
       alwaysIncludePattern: true
     },
     apiPost: {
       type: 'dateFile',
-      filename: path.resolve(__dirname, '../logs/api/post'),
+      filename: getFilePath('api/post'),
       pattern: '.yyyy-MM-dd.log',
       alwaysIncludePattern: true
     },
     others: {
       type: 'file',
-      filename: path.resolve(__dirname, '../logs/default/other.log'),
+      filename: getFilePath('default/other.log'),
       maxLogSize: 10485760, // 最大10MB
       backups: 5 // 保留5个文件
     }
